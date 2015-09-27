@@ -48,7 +48,7 @@ public class Inventory implements Iterable<Item> {
 			Item stackable = inventory.get(slot);
 			int newAmount = stackable.getAmount() - item.getAmount();
 			
-			if(newAmount < 0) {
+			if(newAmount <= 0) {
 				inventory.remove(stackable);
 			} else {
 				stackable.setAmount(newAmount);

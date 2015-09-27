@@ -47,6 +47,11 @@ public class Game {
 		
 		//Messages.introMessage();
 		
+		player.getInventory().add(new Item(0, 1));
+		player.getInventory().add(new Item(1, 1));
+		player.getInventory().add(new Item(2, 1));
+		player.getInventory().add(new Item(3, 1));
+		
 		play();
 	}
 

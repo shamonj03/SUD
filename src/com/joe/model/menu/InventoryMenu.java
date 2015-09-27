@@ -15,7 +15,11 @@ public class InventoryMenu extends Menu {
 	}
 
 	private void handleItem(Item item) {
-		System.out.println(item);
+		Player player = Game.getPlayer();
+		
+		if(!player.equip(item)) {
+			System.out.println("Nothing interesting happens.");
+		}
 	}
 
 	@Override public void populateMenu() {
@@ -23,7 +27,11 @@ public class InventoryMenu extends Menu {
 		Inventory inventory = player.getInventory();
 		
 		for(Item item : inventory) {
-			addItem(item.getData().getName() + " x " + item.getAmount());
+			if(item.getData().isEquipable()) {
+				addItem("Equip: " + item.getData().getName() + " x " + item.getAmount());
+			} else {
+				addItem("Use: " + item.getData().getName() + " x " + item.getAmount());
+			}
 		}
 		
 		addItem("Exit");

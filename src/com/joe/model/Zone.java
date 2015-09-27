@@ -24,6 +24,11 @@ public abstract class Zone extends EntityManager {
 		initialize();
 		registerObjects();
 	}
+	
+	/**
+	 * @return The the map containing the objects of the zone;
+	 */
+	public abstract int[][] getDefaultObjectMap();
 
 	/**
 	 * Initialize all the entities in the zone.
@@ -43,11 +48,6 @@ public abstract class Zone extends EntityManager {
 		Messages.pressEnterToContinue();
 		unregister(item);
 	}
-	
-	/**
-	 * @return The the map containing the objects of the zone;
-	 */
-	public abstract int[][] getDefaultObjectMap();
 
 	/**
 	 * Reset the tile map to the default map;

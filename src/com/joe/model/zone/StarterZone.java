@@ -31,7 +31,7 @@ public class StarterZone extends Zone {
 		Npc test = new Npc(0, new Location(3, 3));
 		register(test);
 		
-		GroundItem sword = new GroundItem(new Item(1, 1), new Location(1, 1));
+		GroundItem sword = new GroundItem(new Item(0, 1), new Location(1, 1));
 		register(sword);
 	}
 

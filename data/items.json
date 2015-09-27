@@ -3,12 +3,27 @@
 	{	
 		"name": "Sword",
 		"stackable": "false",
-		"equipable": "false"
+		"equipable": "true",
+		"slot": "MAIN_HAND"
 	},
 	"1":
 	{	
 		"name": "Health Potions",
 		"stackable": "true",
 		"equipable": "false"
+	},
+	"2":
+	{	
+		"name": "Bow",
+		"stackable": "false",
+		"equipable": "true",
+		"slot": "MAIN_HAND"
+	}	,
+	"3":
+	{	
+		"name": "Arrows",
+		"stackable": "true",
+		"equipable": "true",
+		"slot": "AMMO"
 	}	
 }
