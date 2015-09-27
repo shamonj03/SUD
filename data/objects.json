@@ -1,0 +1,19 @@
+{
+	"0":
+	{	
+		"name": "Floor",
+		"solid": "false",
+		"mapChar": ' '
+	},
+	"1":
+	{	
+		"name": "Wall",
+		"mapChar": 'X'
+	},	
+	"2":
+	{	
+		"name": "Door",
+		"mapChar": 'D',
+		"interactable": "true"
+	}	
+}

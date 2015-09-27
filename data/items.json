@@ -1,0 +1,14 @@
+{
+	"0":
+	{	
+		"name": "Sword",
+		"stackable": "false",
+		"equipable": "false"
+	},
+	"1":
+	{	
+		"name": "Health Potions",
+		"stackable": "true",
+		"equipable": "false"
+	}	
+}
