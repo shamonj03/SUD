@@ -6,22 +6,29 @@ import java.io.InputStreamReader;
 
 public class InputReader {
 
-	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	private static BufferedReader reader = new BufferedReader(
+			new InputStreamReader(System.in));
 
 	public static String getLine() {
 		String input = "";
-		
+
 		try {
 			while (System.in.available() != 0) {
 				System.in.read();
 			}
+
 			input = reader.readLine();
+
+			if (input == null) {
+				System.out.println("Ending game...");
+				System.exit(1);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return input;
 	}
-	
+
 	public static int getInt() {
 		int number = 0;
 
@@ -33,7 +40,7 @@ public class InputReader {
 		}
 		return number;
 	}
-	
+
 	public static float getFloat() {
 		float number = 0;
 
@@ -45,7 +52,7 @@ public class InputReader {
 		}
 		return number;
 	}
-	
+
 	public static double getDouble() {
 		double number = 0;
 
@@ -57,7 +64,7 @@ public class InputReader {
 		}
 		return number;
 	}
-	
+
 	public static boolean getBoolean() {
 		boolean bool = false;
 

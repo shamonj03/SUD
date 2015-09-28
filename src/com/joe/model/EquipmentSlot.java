@@ -30,4 +30,10 @@ public enum EquipmentSlot {
 	public int getSlot() {
 		return slot;
 	}
+	
+	private static final EquipmentSlot[] slots = EquipmentSlot.values();
+	
+	public static EquipmentSlot forId(int slot) {
+		return slots[slot];
+	}
 }

@@ -93,4 +93,26 @@ public class Inventory implements Iterable<Item> {
 	@Override public Iterator<Item> iterator() {
 		return inventory.iterator();
 	}
+
+	public boolean contains(Item item) {
+		return inventory.contains(item);
+	}
+	
+	public boolean contains(int id, int amount) {
+		for(Item item : inventory) {
+			if(id == item.getId() && amount == item.getAmount()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean contains(int id) {
+		for(Item item : inventory) {
+			if(id == item.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

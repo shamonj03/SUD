@@ -56,25 +56,7 @@ public class Messages {
 		Game.getPlayer().getInventory().add(sword);
 		Game.getPlayer().getInventory().add(potion);
 
-		pressEnterToContinue();
-	}
-
-	public static void hintMessageGuide() {
-		Game.getCamera().getLocation().set(5, 6);
-		Util.streamMessageLn("Kids these days...Can't do anything on their own.");
-		pressEnterToContinue();
-		Game.getPlayer().getZone().printVisibleZone();
-		System.out.println();
-		Util.streamMessageLn("Look, there's a door down there.");
-		Util.streamMessageLn("Now get out of my sight.");
-		pressEnterToContinue();
-		Game.getCamera().getLocation().set(Game.getPlayer().getLocation());
-	}
-
-	public static void pressEnterToContinue() {
-		System.out.println("Press enter to continue...");
-		InputReader.getLine();
-		System.out.println();
+		Util.pressEnterToContinue();
 	}
 
 }

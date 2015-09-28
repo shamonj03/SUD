@@ -13,8 +13,12 @@ public class GameObject extends Entity {
 	private ObjectData data;
 	
 	public GameObject(int id, Location location) {
-		this.id = id;
 		this.location.set(location);
+		this.setId(id);
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 		this.data = ObjectDefinition.forId(id);
 		this.name = data.getName();
 	}

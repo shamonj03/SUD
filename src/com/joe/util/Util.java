@@ -2,6 +2,8 @@ package com.joe.util;
 
 import java.util.Scanner;
 
+import com.joe.Game;
+
 public class Util {
 	
 	public static void streamMessage(String message) {
@@ -28,5 +30,25 @@ public class Util {
 		if (Constants.DEBUGGING) {
 			System.out.println(message);
 		}
+	}
+
+	public static void hintMessageGuide() {
+		Game.getCamera().getLocation().set(5, 6);
+		streamMessageLn("Kids these days...Can't do anything on their own.");
+		pressEnterToContinue();
+		Game.getPlayer().getZone().printVisibleZone();
+		System.out.println();
+		streamMessageLn("Look, there's a door down there.");
+		streamMessageLn("Now get out of my sight.");
+		pressEnterToContinue();
+		Game.getCamera().getLocation().set(Game.getPlayer().getLocation());
+	}
+	
+
+
+	public static void pressEnterToContinue() {
+		System.out.println("Press enter to continue...");
+		InputReader.getLine();
+		System.out.println();
 	}
 }

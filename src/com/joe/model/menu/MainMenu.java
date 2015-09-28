@@ -28,9 +28,18 @@ public class MainMenu extends Menu {
 		addItem("South");
 		addItem("East");
 		addItem("West");
-		addItem("Open Inventory");
-		
-		entities = player.getZone().getEntitiesInReach();
+		addItem("Inventory");
+		addItem("Equipment");
+
+		entities = player.getZone().getEntitiesInReach(entity -> {
+			if (entity.getType() == EntityType.OBJECT) {
+				GameObject object = (GameObject) entity;
+
+				return !object.getData().isInteractable();
+			}
+			return false;
+		});
+
 		for (Entity entity : entities) {
 
 			if (entity.getType() == EntityType.OBJECT) {
@@ -60,17 +69,20 @@ public class MainMenu extends Menu {
 				player.move(Direction.WEST);
 			}
 			Game.getCamera().getLocation().set(player.getLocation());
-		} else if(option == 5) {
+		} else if (option == 5) {
 			MenuDefinition.forId(1).displayMenu();
+		} else if (option == 6) {
+			MenuDefinition.forId(2).displayMenu();
 		} else {
-			Entity entity = entities.get(option - 6);
+			Entity entity = entities.get(option - 7);
 
 			if (entity.getType() == EntityType.OBJECT) {
 				player.getZone().handleObjectInteraction((GameObject) entity);
 			} else if (entity.getType() == EntityType.NPC) {
 				player.getZone().handleNpcInteraction((Npc) entity);
 			} else if (entity.getType() == EntityType.ITEM) {
-				player.getZone().handleGroundItemInteraction((GroundItem) entity);
+				player.getZone().handleGroundItemInteraction(
+						(GroundItem) entity);
 			}
 		}
 	}

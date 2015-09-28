@@ -1,6 +1,7 @@
 package com.joe.model;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import com.joe.Game;
 import com.joe.model.entity.GameObject;
@@ -45,7 +46,7 @@ public abstract class Zone extends EntityManager {
 		player.getInventory().add(item.getItem());
 		
 		Util.streamMessageLn("You picked up: " + item.getName() + " x " + item.getItem().getAmount() +".");
-		Messages.pressEnterToContinue();
+		Util.pressEnterToContinue();
 		unregister(item);
 	}
 
@@ -107,13 +108,14 @@ public abstract class Zone extends EntityManager {
 		}
 	}
 
-	public ArrayList<Entity> getEntitiesInReach() {
+	
+	public ArrayList<Entity> getEntitiesInReach(Predicate<Entity> predicate) {
 		ArrayList<Entity> list = new ArrayList<>();
 
 		Player player = Game.getPlayer();
 
 		for (Entity entity : getEntities()) {
-			if (entity.getType() == EntityType.PLAYER) {
+			if (entity.getType() == EntityType.PLAYER || predicate.test(entity)) {
 				continue;
 			}
 			if (entity.getLocation().withinDistance(player.getLocation(), 1)) {

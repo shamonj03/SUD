@@ -12,8 +12,14 @@
 	},	
 	"2":
 	{	
-		"name": "Door",
+		"name": "Locked Door",
 		"mapChar": 'D',
 		"interactable": "true"
-	}	
+	},	
+	"3":
+	{	
+		"name": "Unlocked Door",
+		"mapChar": 'D',
+		"interactable": "true"
+	}		
 }

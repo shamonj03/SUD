@@ -6,6 +6,7 @@ import com.joe.model.EntityType;
 import com.joe.model.Equipment;
 import com.joe.model.Inventory;
 import com.joe.model.Item;
+import com.joe.model.ItemType;
 import com.joe.model.Zone;
 
 public class Player extends Character {
@@ -24,10 +25,10 @@ public class Player extends Character {
 	public boolean equip(Item item) {
 		Player player = Game.getPlayer();
 
-		if (!item.getData().isEquipable()) {
+		if (item.getData().getType() != ItemType.EQUIPABLE) {
 			return false;
 		}
-		if (player.getEquipment().setSlot(item)) {
+		if (player.getEquipment().add(item)) {
 			player.getInventory().remove(item);
 			System.out.println("You equip the " + item.getData().getName()
 					+ ".");

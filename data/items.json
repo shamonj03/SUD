@@ -3,27 +3,32 @@
 	{	
 		"name": "Sword",
 		"stackable": "false",
-		"equipable": "true",
-		"slot": "MAIN_HAND"
+		"slot": "MAIN_HAND",
+		"type": "EQUIPABLE"
 	},
 	"1":
 	{	
 		"name": "Health Potions",
 		"stackable": "true",
-		"equipable": "false"
+		"type": "CONSUMABLE"
 	},
 	"2":
 	{	
 		"name": "Bow",
-		"stackable": "false",
-		"equipable": "true",
-		"slot": "MAIN_HAND"
-	}	,
+		"slot": "MAIN_HAND",
+		"type": "EQUIPABLE"
+	},
 	"3":
 	{	
 		"name": "Arrows",
 		"stackable": "true",
-		"equipable": "true",
-		"slot": "AMMO"
+		"slot": "AMMO",
+		"type": "EQUIPABLE"
+	}, 
+	"4":
+	{	
+		"name": "Key",
+		"examine": "This key should be able to unlock a door.",
+		"stackable": "false"
 	}	
 }
