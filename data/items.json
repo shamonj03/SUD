@@ -4,31 +4,59 @@
 		"name": "Sword",
 		"stackable": "false",
 		"slot": "MAIN_HAND",
-		"type": "EQUIPABLE"
+		"type": "EQUIPABLE",
+		"examine": "A sword used for slashing.",
+		"actions": [
+			"Equip",
+			"Use",
+			"Examine"
+		]
 	},
 	"1":
 	{	
 		"name": "Health Potions",
 		"stackable": "true",
-		"type": "CONSUMABLE"
+		"type": "CONSUMABLE",
+		"examine": "This could heal some health.",
+		"actions": [
+			"Drink",
+			"Use",
+			"Examine"
+		]
 	},
 	"2":
 	{	
 		"name": "Bow",
 		"slot": "MAIN_HAND",
-		"type": "EQUIPABLE"
+		"type": "EQUIPABLE",
+		"examine": "A bow used for shooting.",
+		"actions": [
+			"Equip",
+			"Use",
+			"Examine"
+		]
 	},
 	"3":
 	{	
 		"name": "Arrows",
 		"stackable": "true",
 		"slot": "AMMO",
-		"type": "EQUIPABLE"
+		"type": "EQUIPABLE",
+		"examine": "I could use these as ammo.",
+		"actions": [
+			"Equip",
+			"Use",
+			"Examine"
+		]
 	}, 
 	"4":
 	{	
 		"name": "Key",
 		"examine": "This key should be able to unlock a door.",
-		"stackable": "false"
+		"stackable": "false",
+		"actions": [
+			"Use",
+			"Examine"
+		]
 	}	
 }

@@ -1,5 +1,7 @@
 package com.joe.model;
 
+import com.joe.util.Util;
+
 public enum Direction {
 
 	NORTH(0, -1), SOUTH(0, 1), EAST(1, 0), WEST(-1, 0), NORTH_EAST(1, 1), NORTH_WEST(-1, 1), SOUTH_EAST(1, -1), SOUTH_WEST(-1, -1), NONE(0, 0);
@@ -19,11 +21,8 @@ public enum Direction {
 	public int getYOffset() {
 		return yOffset;
 	}
-	
+
 	public String getName() {
-		char firstChar = this.name().charAt(0);
-		String otherCharacters = name().substring(1, name().length()).toLowerCase();
-		
-		return firstChar + otherCharacters;
+		return Util.capitalizeAllFirstLetters(name());
 	}
 }

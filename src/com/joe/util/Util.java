@@ -1,7 +1,5 @@
 package com.joe.util;
 
-import java.util.Scanner;
-
 import com.joe.Game;
 
 public class Util {
@@ -43,12 +41,27 @@ public class Util {
 		pressEnterToContinue();
 		Game.getCamera().getLocation().set(Game.getPlayer().getLocation());
 	}
-	
-
 
 	public static void pressEnterToContinue() {
 		System.out.println("Press enter to continue...");
 		InputReader.getLine();
 		System.out.println();
+	}
+	
+	public static String capitalizeAllFirstLetters(String line) {
+		line = line.replaceAll("_", " ");
+		String[] words = line.split(" ");
+		
+		String formated = "";
+		for(String s : words) {
+			formated = formated + capitalizeFirstLetter(s) + " ";
+		}
+		return formated.trim();
+	}
+	
+	public static String capitalizeFirstLetter(String word) {
+		char firstChar = word.charAt(0);
+		String otherCharacters = word.substring(1, word.length()).toLowerCase();
+		return firstChar + otherCharacters;
 	}
 }

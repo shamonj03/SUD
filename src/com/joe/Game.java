@@ -1,29 +1,13 @@
 package com.joe;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import com.joe.io.definition.ItemDefinition;
 import com.joe.io.definition.MenuDefinition;
 import com.joe.io.definition.NpcDefinition;
 import com.joe.io.definition.ObjectDefinition;
 import com.joe.io.definition.ZoneDefinition;
 import com.joe.model.Camera;
-import com.joe.model.Direction;
-import com.joe.model.Entity;
-import com.joe.model.EntityType;
 import com.joe.model.Item;
-import com.joe.model.Zone;
-import com.joe.model.entity.GameObject;
-import com.joe.model.entity.GroundItem;
-import com.joe.model.entity.Npc;
 import com.joe.model.entity.Player;
-import com.joe.util.InputReader;
-import com.joe.util.Messages;
-import com.joe.util.Util;
 
 public class Game {
 

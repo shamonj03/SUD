@@ -1,6 +1,7 @@
 package com.joe.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.joe.util.Util;
 
 public enum EquipmentSlot {
 	@SerializedName("HELMET")
@@ -35,5 +36,9 @@ public enum EquipmentSlot {
 	
 	public static EquipmentSlot forId(int slot) {
 		return slots[slot];
+	}
+	
+	public String getName() {
+		return Util.capitalizeAllFirstLetters(name());
 	}
 }

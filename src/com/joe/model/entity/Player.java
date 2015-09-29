@@ -33,6 +33,10 @@ public class Player extends Character {
 		return true;
 	}
 
+	public void consume(Item item) {
+		
+	}
+	
 	public boolean equip(Item item) {
 		Player player = Game.getPlayer();
 
@@ -41,11 +45,13 @@ public class Player extends Character {
 		}
 		if (player.getEquipment().add(item)) {
 			player.getInventory().remove(item);
-			System.out.println("You equip the " + item.getData().getName()
+			Util.streamMessageLn("You equip the " + item.getData().getName()
 					+ ".");
+			Util.pressEnterToContinue();
 		} else {
-			System.out.println("Your inventory is too full to equip the "
+			Util.streamMessageLn("Your inventory is too full to equip the "
 					+ item.getData().getName() + ".");
+			Util.pressEnterToContinue();
 		}
 		return true;
 	}

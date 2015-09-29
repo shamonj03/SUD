@@ -14,6 +14,10 @@ public class Item {
 		this.amount = amount;
 	}
 	
+	public String getName() {
+		return getData().getName();
+	}
+	
 	public ItemData getData() {
 		return ItemDefinition.forId(id);
 	}

@@ -15,6 +15,12 @@ public class ItemData {
 	
 	private String examine = "This item is nothing of interest.";
 	
+	private String[] actions;
+	
+	public String[] getActions() {
+		return actions;
+	}
+	
 	public String getExamine() {
 		return examine;
 	}

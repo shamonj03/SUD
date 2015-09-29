@@ -1,9 +1,5 @@
 package com.joe.util;
 
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.function.Function;
-
 import com.joe.Game;
 import com.joe.model.Item;
 

@@ -2,7 +2,6 @@ package com.joe.model.entity;
 
 import com.joe.io.data.NpcData;
 import com.joe.io.definition.NpcDefinition;
-import com.joe.io.definition.ObjectDefinition;
 import com.joe.model.EntityType;
 import com.joe.model.Location;
 
@@ -10,7 +9,6 @@ public class Npc extends Character {
 	
 	private int id;
 	
-	private NpcData data;
 	
 	public Npc(int id, Location location) {
 		this.location.set(location);
@@ -19,8 +17,7 @@ public class Npc extends Character {
 	
 	public void setId(int id) {
 		this.id = id;
-		this.data = NpcDefinition.forId(id);
-		this.name = data.getName();
+		this.name = getData().getName();
 	}
 	
 	public int getId() {
@@ -28,7 +25,7 @@ public class Npc extends Character {
 	}
 	
 	public NpcData getData() {
-		return data;
+		return  NpcDefinition.forId(id);
 	}
 
 	@Override public EntityType getType() {

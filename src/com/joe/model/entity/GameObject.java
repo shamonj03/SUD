@@ -10,7 +10,6 @@ public class GameObject extends Entity {
 
 	private int id;
 
-	private ObjectData data;
 	
 	public GameObject(int id, Location location) {
 		this.location.set(location);
@@ -19,12 +18,11 @@ public class GameObject extends Entity {
 	
 	public void setId(int id) {
 		this.id = id;
-		this.data = ObjectDefinition.forId(id);
-		this.name = data.getName();
+		this.name = getData().getName();
 	}
 
 	public ObjectData getData() {
-		return data;
+		return ObjectDefinition.forId(id);
 	}
 
 	@Override public EntityType getType() {

@@ -5,19 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public enum ItemType {
 
 	@SerializedName("EQUIPABLE")
-	EQUIPABLE("Equip"),
+	EQUIPABLE,
 	@SerializedName("CONSUMABLE")
-	CONSUMABLE("Consume"),
+	CONSUMABLE,
 	@SerializedName("DEFAULT")
-	DEFAULT("Inspect");
+	DEFAULT;
 	
-	private String menuOption;
-	
-	private ItemType(String menuOption) {
-		this.menuOption = menuOption;
-	}
-	
-	public String getMenuOption() {
-		return menuOption;
-	}
 }

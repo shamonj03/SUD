@@ -8,7 +8,6 @@ import com.joe.model.entity.GameObject;
 import com.joe.model.entity.GroundItem;
 import com.joe.model.entity.Npc;
 import com.joe.model.entity.Player;
-import com.joe.util.Messages;
 import com.joe.util.Util;
 
 public abstract class Zone extends EntityManager {

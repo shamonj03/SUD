@@ -50,14 +50,14 @@ public class EntityMenu extends Menu {
 					+ ".");
 		}
 
-		addItem("Exit");
+		addItem("Back");
 	}
 
-	@Override public void handleOption(int option) {
+	@Override public void handleOption(int index, int option) {
 		Player player = Game.getPlayer();
 
-		if ((option - 1) < entities.size()) {
-			Entity entity = entities.get(option - 1);
+		if ((index - 1) < entities.size()) {
+			Entity entity = entities.get(index - 1);
 
 			if (entity.getType() == EntityType.OBJECT) {
 				player.getZone().handleObjectInteraction((GameObject) entity);
@@ -67,6 +67,10 @@ public class EntityMenu extends Menu {
 				player.getZone().handleGroundItemInteraction(
 						(GroundItem) entity);
 			}
+		}
+	
+		if (index != size()) {
+			displayMenu();
 		}
 	}
 
