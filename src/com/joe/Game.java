@@ -51,7 +51,7 @@ public class Game {
 		player.getInventory().add(new Item(1, 1));
 		player.getInventory().add(new Item(2, 1));
 		player.getInventory().add(new Item(3, 1));
-		player.getInventory().add(new Item(4, 1));
+		//player.getInventory().add(new Item(4, 1));
 		
 		play();
 	}

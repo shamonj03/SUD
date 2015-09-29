@@ -2,8 +2,8 @@ package com.joe.model.menu;
 
 import com.joe.Game;
 import com.joe.io.definition.MenuDefinition;
-import com.joe.model.Inventory;
 import com.joe.model.Item;
+import com.joe.model.ItemContainer;
 import com.joe.model.ItemType;
 import com.joe.model.Menu;
 import com.joe.model.entity.Player;
@@ -26,7 +26,7 @@ public class InventoryMenu extends Menu {
 
 	@Override public void populateMenu() {
 		Player player = Game.getPlayer();
-		Inventory inventory = player.getInventory();
+		ItemContainer inventory = player.getInventory();
 
 		for (Item item : inventory) {
 			ItemType type = item.getData().getType();
@@ -40,7 +40,7 @@ public class InventoryMenu extends Menu {
 
 	@Override public void handleOption(int option) {
 		Player player = Game.getPlayer();
-		Inventory inventory = player.getInventory();
+		ItemContainer inventory = player.getInventory();
 
 		if (option <= inventory.getSize()) {
 			Item item = inventory.getItem(option - 1);

@@ -25,7 +25,7 @@ public abstract class Zone extends EntityManager {
 		initialize();
 		registerObjects();
 	}
-	
+
 	/**
 	 * @return The the map containing the objects of the zone;
 	 */
@@ -35,19 +35,23 @@ public abstract class Zone extends EntityManager {
 	 * Initialize all the entities in the zone.
 	 */
 	public abstract void initialize();
-	
+
 	public abstract void handleObjectInteraction(GameObject object);
-	
+
 	public abstract void handleNpcInteraction(Npc npc);
 
 	public void handleGroundItemInteraction(GroundItem item) {
 		Player player = Game.getPlayer();
-		
-		player.getInventory().add(item.getItem());
-		
-		Util.streamMessageLn("You picked up: " + item.getName() + " x " + item.getItem().getAmount() +".");
-		Util.pressEnterToContinue();
-		unregister(item);
+
+		if (player.getInventory().add(item.getItem())) {
+			Util.streamMessageLn("You picked up: " + item.getName() + " x "
+					+ item.getItem().getAmount() + ".");
+			Util.pressEnterToContinue();
+			unregister(item);
+		} else {
+			Util.streamMessageLn("Your inventory is too full to pick this item up.");
+			Util.pressEnterToContinue();
+		}
 	}
 
 	/**
@@ -67,7 +71,7 @@ public abstract class Zone extends EntityManager {
 			}
 		}
 	}
-	
+
 	private void resetMap() {
 		int[][] map = getDefaultObjectMap();
 
@@ -108,7 +112,6 @@ public abstract class Zone extends EntityManager {
 		}
 	}
 
-	
 	public ArrayList<Entity> getEntitiesInReach(Predicate<Entity> predicate) {
 		ArrayList<Entity> list = new ArrayList<>();
 

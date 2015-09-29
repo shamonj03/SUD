@@ -4,14 +4,15 @@ import com.joe.Game;
 import com.joe.io.definition.ZoneDefinition;
 import com.joe.model.EntityType;
 import com.joe.model.Equipment;
-import com.joe.model.Inventory;
 import com.joe.model.Item;
+import com.joe.model.ItemContainer;
 import com.joe.model.ItemType;
 import com.joe.model.Zone;
+import com.joe.util.Util;
 
 public class Player extends Character {
 
-	private Inventory inventory = new Inventory();
+	private ItemContainer inventory = new ItemContainer(28);
 
 	private Equipment equipment = new Equipment();
 
@@ -20,6 +21,16 @@ public class Player extends Character {
 	public Player() {
 		location.set(2, 3);
 		zone.register(this);
+	}
+
+	public boolean addItemToInv(Item item) {
+		if (!getInventory().add(item)) {
+			zone.register(new GroundItem(item, getLocation()));
+			Util.streamMessageLn("Your inventory is too full. The item is placed on the ground.");
+			Util.pressEnterToContinue();
+			return false;
+		}
+		return true;
 	}
 
 	public boolean equip(Item item) {
@@ -63,7 +74,7 @@ public class Player extends Character {
 		return super.equals(o) && getType().equals(other.getType());
 	}
 
-	public Inventory getInventory() {
+	public ItemContainer getInventory() {
 		return inventory;
 	}
 

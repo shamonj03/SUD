@@ -33,7 +33,7 @@ public class Util {
 	}
 
 	public static void hintMessageGuide() {
-		Game.getCamera().getLocation().set(5, 6);
+		Game.getCamera().getLocation().set(10, 6);
 		streamMessageLn("Kids these days...Can't do anything on their own.");
 		pressEnterToContinue();
 		Game.getPlayer().getZone().printVisibleZone();

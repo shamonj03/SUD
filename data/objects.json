@@ -21,5 +21,18 @@
 		"name": "Unlocked Door",
 		"mapChar": 'D',
 		"interactable": "true"
-	}		
+	},	
+	"4":
+	{	
+		"name": "Pot",
+		"mapChar": 'p',
+		"solid": "false",
+		"interactable": "true"
+	},
+	"5":
+	{	
+		"name": "Fake Wall",
+		"mapChar": 'X',
+		"interactable": "true"
+	}			
 }

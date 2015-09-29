@@ -15,44 +15,19 @@ import com.joe.model.entity.Player;
 
 public class MainMenu extends Menu {
 
-	private ArrayList<Entity> entities;
-
 	public MainMenu() {
 		super("What would you like to do?");
 	}
 
 	@Override public void populateMenu() {
-		Player player = Game.getPlayer();
+		addItem("Move North");
+		addItem("Move South");
+		addItem("Move East");
+		addItem("Move West");
+		addItem("Open Inventory");
+		addItem("View Equipment");
+		addItem("Interact With Entities");
 
-		addItem("North");
-		addItem("South");
-		addItem("East");
-		addItem("West");
-		addItem("Inventory");
-		addItem("Equipment");
-
-		entities = player.getZone().getEntitiesInReach(entity -> {
-			if (entity.getType() == EntityType.OBJECT) {
-				GameObject object = (GameObject) entity;
-
-				return !object.getData().isInteractable();
-			}
-			return false;
-		});
-
-		for (Entity entity : entities) {
-
-			if (entity.getType() == EntityType.OBJECT) {
-				GameObject object = (GameObject) entity;
-
-				if (!object.getData().isInteractable()) {
-					continue;
-				}
-			}
-			addItem("Interact with " + entity.getType() + ": "
-					+ entity.getName() + ", Dir: "
-					+ player.getLocation().directionOf(entity.getLocation()));
-		}
 	}
 
 	@Override public void handleOption(int option) {
@@ -73,17 +48,8 @@ public class MainMenu extends Menu {
 			MenuDefinition.forId(1).displayMenu();
 		} else if (option == 6) {
 			MenuDefinition.forId(2).displayMenu();
-		} else {
-			Entity entity = entities.get(option - 7);
-
-			if (entity.getType() == EntityType.OBJECT) {
-				player.getZone().handleObjectInteraction((GameObject) entity);
-			} else if (entity.getType() == EntityType.NPC) {
-				player.getZone().handleNpcInteraction((Npc) entity);
-			} else if (entity.getType() == EntityType.ITEM) {
-				player.getZone().handleGroundItemInteraction(
-						(GroundItem) entity);
-			}
+		} else if (option == 7) {
+			MenuDefinition.forId(3).displayMenu();
 		}
 	}
 }

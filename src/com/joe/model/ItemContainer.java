@@ -3,11 +3,27 @@ package com.joe.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Inventory implements Iterable<Item> {
-	
-	private static final int MAX_SLOTS = 28;
+public class ItemContainer implements Iterable<Item> {
 
-	private ArrayList<Item> inventory = new ArrayList<>();
+	private final int maxSlots;
+	
+	private final ArrayList<Item> items = new ArrayList<>();
+
+	public ItemContainer(int maxSlots) {
+		this.maxSlots = maxSlots;
+	}
+	
+	public boolean add(Item item) {
+		return add(item.getId(), item.getAmount());
+	}
+	
+	public void remove(Item item) {
+		remove(item.getId(), item.getAmount());
+	}
+	
+	public Item getItem(int slot) {
+		return items.get(slot);
+	}
 	
 	public boolean add(int id, int amount) {
 		Item item = new Item(id, amount);
@@ -16,20 +32,20 @@ public class Inventory implements Iterable<Item> {
 			int slot = getSlotForItem(id);
 			
 			if(slot == -1) {
-				if((inventory.size() + 1) >= MAX_SLOTS) { // Inventory too large.
+				if((items.size() + 1) >= maxSlots) { // Inventory too large.
 					return false;
 				}
-				inventory.add(item);
+				items.add(item);
 			} else {
-				Item stackable = inventory.get(slot);
+				Item stackable = items.get(slot);
 				stackable.setAmount(stackable.getAmount() + item.getAmount());
 			}
 		} else {
-			if((inventory.size() + amount) >= MAX_SLOTS) { // Inventory too large.
+			if((items.size() + amount) >= maxSlots) { // Inventory too large.
 				return false;
 			}
 			for(int i = 0; i < amount; i++) {
-				inventory.add(new Item(id, 1));
+				items.add(new Item(id, 1));
 			}
 		}
 		return true;
@@ -45,40 +61,24 @@ public class Inventory implements Iterable<Item> {
 		Item item = new Item(id, amount);
 		
 		if(item.getData().isStackable()) {
-			Item stackable = inventory.get(slot);
+			Item stackable = items.get(slot);
 			int newAmount = stackable.getAmount() - item.getAmount();
 			
 			if(newAmount <= 0) {
-				inventory.remove(stackable);
+				items.remove(stackable);
 			} else {
 				stackable.setAmount(newAmount);
 			}
 		} else {
 			for(int i = 0; i < amount; i++) {
-				inventory.remove(new Item(id, 1));
+				items.remove(new Item(id, 1));
 			}
 		}
 	}
 	
-	public boolean add(Item item) {
-		return add(item.getId(), item.getAmount());
-	}
-	
-	public void remove(Item item) {
-		remove(item.getId(), item.getAmount());
-	}
-	
-	public Item getItem(int slot) {
-		return inventory.get(slot);
-	}
-	
-	public ArrayList<Item> getItems() {
-		return inventory;
-	}
-	
 	public int getSlotForItem(int id) {
-		for(int slot = 0; slot < inventory.size(); slot++) {
-			Item item = inventory.get(slot);
+		for(int slot = 0; slot < items.size(); slot++) {
+			Item item = items.get(slot);
 			if(item.getId() == id) {
 				return slot;
 			}
@@ -86,20 +86,8 @@ public class Inventory implements Iterable<Item> {
 		return -1;
 	}
 	
-	public int getSize() {
-		return inventory.size();
-	}
-
-	@Override public Iterator<Item> iterator() {
-		return inventory.iterator();
-	}
-
-	public boolean contains(Item item) {
-		return inventory.contains(item);
-	}
-	
 	public boolean contains(int id, int amount) {
-		for(Item item : inventory) {
+		for(Item item : items) {
 			if(id == item.getId() && amount == item.getAmount()) {
 				return true;
 			}
@@ -108,11 +96,32 @@ public class Inventory implements Iterable<Item> {
 	}
 	
 	public boolean contains(int id) {
-		for(Item item : inventory) {
+		for(Item item : items) {
 			if(id == item.getId()) {
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	public ArrayList<Item> getItems() {
+		return items;
+	}
+	
+	public boolean contains(Item item) {
+		return items.contains(item);
+	}
+	
+	public int getSize() {
+		return items.size();
+	}
+
+	public int getMaxSlots() {
+		return maxSlots;
+	}
+	
+	@Override public Iterator<Item> iterator() {
+		return items.iterator();
+	}
+	
 }
