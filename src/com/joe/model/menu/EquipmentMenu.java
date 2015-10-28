@@ -18,7 +18,7 @@ public class EquipmentMenu extends Menu {
 		Player player = Game.getPlayer();
 
 		for (int slot = 0; slot < Equipment.MAX_SLOTS; slot++) {
-			Item item = player.getEquipment().get(slot);
+			Item item = player.getData().getEquipment().get(slot);
 
 			if (item == null) {
 				addItem(EquipmentSlot.forId(slot).getName(), "Empty");
@@ -34,16 +34,16 @@ public class EquipmentMenu extends Menu {
 		Player player = Game.getPlayer();
 
 		if ((index - 1) < Equipment.MAX_SLOTS) {
-			Item item = player.getEquipment().get(index - 1);
+			Item item = player.getData().getEquipment().get(index - 1);
 
 			if (item == null) {
 				displayMenu();
 				return;
 			}
-			player.getEquipment().remove(index - 1);
+			player.getData().getEquipment().remove(index - 1);
 			Util.streamMessageLn("You unequip the " + item.getData().getName()
 					+ " x " + item.getAmount() + ".");
-			Util.pressEnterToContinue();
+			//Util.pressEnterToContinue();
 		}
 
 		if (index != size()) {

@@ -23,21 +23,21 @@ public enum EquipmentSlot {
 	NONE(-1);
 
 	private int slot;
-	
+
 	private EquipmentSlot(int slot) {
 		this.slot = slot;
 	}
-	
+
 	public int getSlot() {
 		return slot;
 	}
-	
+
 	private static final EquipmentSlot[] slots = EquipmentSlot.values();
-	
+
 	public static EquipmentSlot forId(int slot) {
 		return slots[slot];
 	}
-	
+
 	public String getName() {
 		return Util.capitalizeAllFirstLetters(name());
 	}

@@ -16,6 +16,14 @@ public class Location {
 		set(other);
 	}
 
+	public void advance(Direction direction) {
+		offset(direction.getXOffset(), direction.getYOffset());
+	}
+
+	public void retreat(Direction direction) {
+		offset(direction.getXOffset() * -1, direction.getYOffset() * -1);
+	}
+
 	public void offset(int xOff, int yOff) {
 		this.x += xOff;
 		this.y += yOff;
@@ -84,7 +92,7 @@ public class Location {
 
 		return ((deltaX * deltaX) + (deltaY * deltaY)) <= (targetDistance * targetDistance);
 	}
-	
+
 	public boolean withinDiagonalDistance(Location other, int targetDistance) {
 		int deltaX = Math.abs(getX() - other.getX());
 		int deltaY = Math.abs(getY() - other.getY());

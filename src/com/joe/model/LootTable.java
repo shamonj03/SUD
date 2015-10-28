@@ -41,7 +41,7 @@ public class LootTable {
 					Util.streamMessageLn("You find: "
 							+ item.getData().getName() + " x "
 							+ item.getAmount());
-					Util.pressEnterToContinue();
+					//Util.pressEnterToContinue();
 					player.addItemToInv(item);
 				});
 	}

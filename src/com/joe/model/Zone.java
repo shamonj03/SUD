@@ -4,36 +4,50 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import com.joe.Game;
-import com.joe.model.entity.GameObject;
+import com.joe.GameFrame;
+import com.joe.model.entity.Character;
 import com.joe.model.entity.GroundItem;
 import com.joe.model.entity.Npc;
 import com.joe.model.entity.Player;
+import com.joe.model.controller.BoundedEntityController;
+import com.joe.model.controller.Tile;
+import com.joe.model.controller.StackedEntityControler;
+import com.joe.model.entity.GameObject;
 import com.joe.util.Util;
 
-public abstract class Zone extends EntityManager {
+public abstract class Zone {
 
-	/**
-	 * The tiles containing everything in the map.
-	 */
-	private char[][] tileMap;
+	private final int width;
+	private final int height;
 
-	/**
-	 * Create a new zone.
-	 */
-	public Zone() {
-		initialize();
-		registerObjects();
-	}
+	protected final StackedEntityControler<Npc> npcController;
+	protected final BoundedEntityController<GameObject> gameObjectController;
+	protected final StackedEntityControler<GroundItem> groundItemController;
+
+	private char[][] map;
+
+	private static final int[][] TILE_OFFSETS = { { -1, 0, }, { 0, -1 }, { 0, 0, }, { 1, 0 }, { 0, 1 } };
 
 	/**
 	 * @return The the map containing the objects of the zone;
 	 */
 	public abstract int[][] getDefaultObjectMap();
 
-	/**
-	 * Initialize all the entities in the zone.
-	 */
-	public abstract void initialize();
+	public Zone() {
+		height = getDefaultObjectMap().length;
+		width = getDefaultObjectMap()[0].length;
+
+		map = new char[height][width];
+
+		npcController = new StackedEntityControler<>(width, height);
+		gameObjectController = new BoundedEntityController<>(width, height);
+		groundItemController = new StackedEntityControler<>(width, height);
+
+		initialize();
+		registerObjects();
+	}
+
+	protected abstract void initialize();
 
 	public abstract void handleObjectInteraction(GameObject object);
 
@@ -42,109 +56,95 @@ public abstract class Zone extends EntityManager {
 	public void handleGroundItemInteraction(GroundItem item) {
 		Player player = Game.getPlayer();
 
-		if (player.getInventory().add(item.getItem())) {
-			Util.streamMessageLn("You picked up: " + item.getName() + " x "
-					+ item.getItem().getAmount() + ".");
-			Util.pressEnterToContinue();
-			unregister(item);
+		if (player.getData().getInventory().add(item.getItem())) {
+			Util.streamMessageLn("You picked up: " + item.getItem().getName() + " x " + item.getItem().getAmount()
+					+ ".");
+			//Util.pressEnterToContinue();
+			groundItemController.unregister(item);
 		} else {
 			Util.streamMessageLn("Your inventory is too full to pick this item up.");
-			Util.pressEnterToContinue();
+			//Util.pressEnterToContinue();
 		}
 	}
 
-	/**
-	 * Reset the tile map to the default map;
-	 */
 	private void registerObjects() {
-		int[][] map = getDefaultObjectMap();
-		tileMap = new char[map.length][];
-
-		for (int y = 0; y < map.length; y++) {
-			tileMap[y] = new char[map[y].length];
-			for (int x = 0; x < map[y].length; x++) {
-				int id = map[y][x];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				int id = getDefaultObjectMap()[y][x];
 
 				GameObject object = new GameObject(id, new Location(x, y));
-				register(object);
+				gameObjectController.register(object);
 			}
 		}
 	}
 
 	private void resetMap() {
-		int[][] map = getDefaultObjectMap();
+		map = new char[getHeight()][getWidth()];
 
-		tileMap = new char[map.length][];
+		gameObjectController.iterate(object -> set(object.getLocation().getX(), object.getLocation().getY(), object
+				.getData().getMapChar()));
 
-		for (int y = 0; y < map.length; y++) {
-			tileMap[y] = new char[map[y].length];
+		npcController.iterateTopTiles(npc -> set(npc.getLocation().getX(), npc.getLocation().getY(), npc.getData()
+				.getMapChar()));
+
+		groundItemController.iterateTopTiles(item -> set(item.getLocation().getX(), item.getLocation().getY(), 'i'));
+
+		Player player = Game.getPlayer();
+		if (player != null) {
+			set(player.getLocation().getX(), player.getLocation().getY(), '@');
 		}
 	}
 
-	private void placeEntities() {
-		for (Entity entity : getEntities()) {
-			if (!checkBounds(entity.getLocation())) {
-				continue;
-			}
-			char tile = getTile(entity.getLocation());
+	public void drawMap() {
+		resetMap();
 
-			if (tile == '\u0000') { // Only display objects if the default char is present.
-				if (entity.getType() == EntityType.OBJECT) {
-					GameObject object = (GameObject) entity;
-					setTile(object.getLocation(), object.getData().getMapChar());
-				}
+		GameFrame.getMap().clearText();
+		for (int y = 0; y < getHeight(); y++) {
+			for (int x = 0; x < getWidth(); x++) {
+				char tile = get(x, y);
+				GameFrame.getMap().printf("%2c", tile);
 			}
-
-			if (tile != 'P') { // Only display npc if is not ontop of the player.
-				if (entity.getType() == EntityType.NPC) {
-					Npc npc = (Npc) entity;
-					setTile(entity.getLocation(), npc.getData().getMapChar());
-				}
-				if (entity.getType() == EntityType.ITEM) {
-					setTile(entity.getLocation(), 'i');
-				}
-			}
-
-			if (entity.getType() == EntityType.PLAYER) { // The place player over everything else.
-				setTile(entity.getLocation(), 'P');
-			}
+			GameFrame.getMap().println();
 		}
 	}
 
-	public ArrayList<Entity> getEntitiesInReach(Predicate<Entity> predicate) {
-		ArrayList<Entity> list = new ArrayList<>();
+	public ArrayList<Entity<?>> getEntitiesInReach(Predicate<Entity<?>> predicate) {
+		ArrayList<Entity<?>> list = new ArrayList<>();
 
 		Player player = Game.getPlayer();
 
-		for (Entity entity : getEntities()) {
-			if (entity.getType() == EntityType.PLAYER || predicate.test(entity)) {
+		for (int index = 0; index < TILE_OFFSETS.length; index++) {
+			int x = player.getLocation().getX() + TILE_OFFSETS[index][0];
+			int y = player.getLocation().getY() + TILE_OFFSETS[index][1];
+
+			if (!inBounds(x, y)) {
 				continue;
 			}
-			if (entity.getLocation().withinDistance(player.getLocation(), 1)) {
-				list.add(entity);
+			GameObject object = gameObjectController.get(x, y);
+
+			if (predicate.test(object)) {
+				list.add(object);
+			}
+
+			Tile<Npc> npcs = npcController.get(x, y);
+			for (Npc npc : npcs) {
+				if (predicate.test(npc)) {
+					list.add(npc);
+				}
+			}
+
+			Tile<GroundItem> groundItems = groundItemController.get(x, y);
+			for (GroundItem item : groundItems) {
+				if (predicate.test(item)) {
+					list.add(item);
+				}
 			}
 		}
 		return list;
 	}
 
-	/**
-	 * Print everything in the zone to the screen.
-	 */
-	public void printZone() {
-		resetMap();
-		placeEntities();
-
-		for (int y = 0; y < tileMap.length; y++) {
-			for (int x = 0; x < tileMap[y].length; x++) {
-				System.out.printf("%2c", getTile(x, y));
-			}
-			System.out.println();
-		}
-	}
-
 	public void printVisibleZone() {
 		resetMap();
-		placeEntities();
 
 		Camera camera = Game.getCamera();
 
@@ -161,90 +161,58 @@ public abstract class Zone extends EntityManager {
 		if (startX < 0) {
 			startX = 0;
 		}
-		if (endY >= tileMap.length) {
-			endY = tileMap.length - 1;
+		if (endY >= map.length) {
+			endY = map.length - 1;
 		}
-		if (endX >= tileMap[endY].length) {
-			endX = tileMap[endY].length - 1;
+		if (endX >= map[endY].length) {
+			endX = map[endY].length - 1;
 		}
+
+		GameFrame.getMap().clearText();
 
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
-				System.out.printf("%2c", getTile(x, y));
+				GameFrame.getMap().printf("%2c", get(x, y));
 			}
-			System.out.println();
+			GameFrame.getMap().println();
 		}
 	}
 
-	/**
-	 * Validate if a coordinate pair is within the bounds of the map.
-	 * 
-	 * @param x
-	 * @param y
-	 * 
-	 * @return true if within bounds.
-	 */
-	public boolean checkBounds(int x, int y) {
-		return (y >= 0 && y < tileMap.length)
-				&& (x >= 0 && x < tileMap[y].length);
+	private boolean inBounds(int x, int y) {
+		return (y >= 0 && y < map.length) && (x >= 0 && x < map[y].length);
 	}
 
-	/**
-	 * Set a tile at a coordinate pair within the maps bounds to a character.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param c
-	 */
-	public void setTile(int x, int y, char c) {
-		if (!checkBounds(x, y)) {
-			return;
-		}
-		tileMap[y][x] = c;
-	}
-
-	/**
-	 * Get a tile at a coordinate pair within the maps bounds.
-	 * 
-	 * @param x
-	 * @param y
-	 * @return the character at the coordinate pair.
-	 */
-	public char getTile(int x, int y) {
-		if (!checkBounds(x, y)) {
+	private char get(int x, int y) {
+		if (!inBounds(x, y)) {
 			throw new IndexOutOfBoundsException();
 		}
-		return tileMap[y][x];
+		return map[y][x];
 	}
 
-	/**
-	 * Checks if a given location is within the bounds of the map.
-	 * 
-	 * @param location
-	 * @return true if within bounds.
-	 */
-	public boolean checkBounds(Location location) {
-		return checkBounds(location.getX(), location.getY());
+	private void set(int x, int y, char t) {
+		if (!inBounds(x, y)) {
+			throw new IndexOutOfBoundsException();
+		}
+		map[y][x] = t;
 	}
 
-	/**
-	 * Set a tile at a coordinate pair within the maps bounds to a character.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param c
-	 */
-	public void setTile(Location location, char c) {
-		setTile(location.getX(), location.getY(), c);
+	public int getHeight() {
+		return height;
 	}
 
-	/**
-	 * Checks if a given location is within the bounds of the map.
-	 * 
-	 * @param location
-	 * @return the character at the location.
-	 */
-	public char getTile(Location location) {
-		return getTile(location.getX(), location.getY());
+	public int getWidth() {
+		return width;
+	}
+
+	public StackedEntityControler<Npc> getNpController() {
+		return npcController;
+	}
+
+	public BoundedEntityController<GameObject> getGameObjectController() {
+		return gameObjectController;
+	}
+
+	public StackedEntityControler<GroundItem> getGroundItemController() {
+		return groundItemController;
 	}
 }

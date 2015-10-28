@@ -10,5 +10,5 @@ public enum ItemType {
 	CONSUMABLE,
 	@SerializedName("DEFAULT")
 	DEFAULT;
-	
+
 }

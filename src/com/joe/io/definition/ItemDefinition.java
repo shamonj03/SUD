@@ -11,19 +11,19 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.joe.io.data.ItemData;
+import com.joe.io.ItemData;
 
 public class ItemDefinition {
-	
+
 	private static HashMap<Integer, ItemData> dataMap;
-	
+
 	public static void load() {
 		try {
 			File file = new File("./data/items.json");
 
 			Type type = new TypeToken<Map<Integer, ItemData>>() { }.getType();
 			dataMap = new Gson().fromJson(new FileReader(file), type);
-			
+
 		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 			e.printStackTrace();
 		}

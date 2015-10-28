@@ -20,7 +20,7 @@ public class Equipment implements Iterable<Item> {
 		if (slottedItem != null) {
 			Player player = Game.getPlayer();
 
-			if (!player.getInventory().add(slottedItem)) {
+			if (!player.getData().getInventory().add(slottedItem)) {
 				return false;
 			}
 		}
@@ -36,7 +36,7 @@ public class Equipment implements Iterable<Item> {
 		}
 
 		Player player = Game.getPlayer();
-		if (!player.getInventory().add(slottedItem)) {
+		if (!player.getData().getInventory().add(slottedItem)) {
 			return false;
 		}
 		items[slot] = null;

@@ -13,7 +13,7 @@ import com.joe.model.entity.Player;
 
 public class EntityMenu extends Menu {
 
-	private ArrayList<Entity> entities;
+	private ArrayList<Entity<?>> entities;
 
 	public EntityMenu() {
 		super("Interact with nearby entites.");
@@ -22,18 +22,18 @@ public class EntityMenu extends Menu {
 	@Override public void populateMenu() {
 		Player player = Game.getPlayer();
 
-		entities = player.getZone().getEntitiesInReach(entity -> {
-			if (entity.getType() == EntityType.OBJECT) {
+		entities = player.getData().getZone().getEntitiesInReach(entity -> {
+			if (entity.getData().getEntityType() == EntityType.OBJECT) {
 				GameObject object = (GameObject) entity;
 
-				return !object.getData().isInteractable();
+				return object.getData().isInteractable();
 			}
-			return false;
+			return true;
 		});
 
-		for (Entity entity : entities) {
+		for (Entity<?> entity : entities) {
 
-			if (entity.getType() == EntityType.OBJECT) {
+			if (entity.getData().getEntityType() == EntityType.OBJECT) {
 				GameObject object = (GameObject) entity;
 
 				if (!object.getData().isInteractable()) {
@@ -43,8 +43,8 @@ public class EntityMenu extends Menu {
 
 			String dir = player.getLocation().directionOf(entity.getLocation())
 					.getName();
-			String type = entity.getType().getName();
-			String text = entity.getName();
+			String type = entity.getData().getEntityType().getName();
+			String text = entity.getData().getName();
 
 			addItem("Interact with " + type + " to the " + dir + ": " + text
 					+ ".");
@@ -57,18 +57,18 @@ public class EntityMenu extends Menu {
 		Player player = Game.getPlayer();
 
 		if ((index - 1) < entities.size()) {
-			Entity entity = entities.get(index - 1);
+			Entity<?> entity = entities.get(index - 1);
 
-			if (entity.getType() == EntityType.OBJECT) {
-				player.getZone().handleObjectInteraction((GameObject) entity);
-			} else if (entity.getType() == EntityType.NPC) {
-				player.getZone().handleNpcInteraction((Npc) entity);
-			} else if (entity.getType() == EntityType.ITEM) {
-				player.getZone().handleGroundItemInteraction(
+			if (entity.getData().getEntityType() == EntityType.OBJECT) {
+				player.getData().getZone().handleObjectInteraction((GameObject) entity);
+			} else if (entity.getData().getEntityType() == EntityType.NPC) {
+				player.getData().getZone().handleNpcInteraction((Npc) entity);
+			} else if (entity.getData().getEntityType() == EntityType.ITEM) {
+				player.getData().getZone().handleGroundItemInteraction(
 						(GroundItem) entity);
 			}
 		}
-	
+
 		if (index != size()) {
 			displayMenu();
 		}

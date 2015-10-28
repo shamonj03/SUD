@@ -1,9 +1,8 @@
 package com.joe.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import com.joe.util.InputReader;
+import com.joe.GameFrame;
 
 public abstract class Menu {
 
@@ -27,7 +26,9 @@ public abstract class Menu {
 		items.clear();
 		populateMenu();
 
-		System.out.println(title);
+		GameFrame.getOptions().clearText();
+
+		GameFrame.getOptions().println(title);
 
 		int keyIndex = 0;
 		int optionIndex = 0;
@@ -36,18 +37,18 @@ public abstract class Menu {
 			keyIndex++;
 
 			if (item.getOptions() == null) {
-				System.out.println("\t" + keyIndex + ": " + item.getHeader());
+				GameFrame.getOptions().println("\t" + keyIndex + ": " + item.getHeader());
 				continue;
 			} else {
-				System.out.println("\t" + item.getHeader());
+				GameFrame.getOptions().println("\t" + item.getHeader());
 			}
 
 			if (item.getOptions().length == 1) {
-				System.out.println("\t\t" + keyIndex + ": "
+				GameFrame.getOptions().println("\t\t" + keyIndex + ": "
 						+ item.getOptions()[0] + ".");
 			} else {
 				for (String option : item.getOptions()) {
-					System.out.println("\t\t" + keyIndex + "." + optionIndex
+					GameFrame.getOptions().println("\t\t" + keyIndex + "." + optionIndex
 							+ ": " + option + ".");
 					optionIndex++;
 				}
@@ -55,8 +56,8 @@ public abstract class Menu {
 			optionIndex = 0;
 		}
 
-		System.out.print("Choice: ");
-		float choice = InputReader.getFloat();
+		GameFrame.getOptions().print("Choice: ");
+		float choice = GameFrame.getInput().getFloat();
 
 		String number = Float.toString(choice);
 
@@ -82,7 +83,7 @@ public abstract class Menu {
 	public int size() {
 		return items.size();
 	}
-	
+
 	private class MenuItem {
 		private final String header;
 		private final String[] options;

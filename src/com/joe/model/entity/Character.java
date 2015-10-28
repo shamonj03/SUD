@@ -3,43 +3,31 @@ package com.joe.model.entity;
 import java.util.ArrayList;
 
 import com.joe.Game;
+import com.joe.io.EntityData;
 import com.joe.model.Direction;
 import com.joe.model.Entity;
 import com.joe.model.EntityType;
 import com.joe.model.Zone;
 
-public abstract class Character extends Entity {
+public abstract class Character<T extends EntityData> extends Entity<T> {
 
 	public void move(Direction direction) {
-		getLocation().offset(direction.getXOffset(), direction.getYOffset());
+		getLocation().advance(direction);
+		checkCollision(direction);
+	}
 
-		Zone zone = Game.getPlayer().getZone();
+	private void checkCollision(Direction direction) {
+		Zone zone = Game.getPlayer().getData().getZone();
 
-		ArrayList<Entity> list = zone.getEntitiesInReach(e -> {
-			return e.getType() != EntityType.OBJECT;
-		});
+		ArrayList<Entity<?>> list = zone.getEntitiesInReach(e -> e.getData().getEntityType() == EntityType.OBJECT);
 
-		for (Entity entity : list) {
+		for (Entity<?> entity : list) {
 			GameObject object = (GameObject) entity;
 
-			if (getLocation().equals(object.getLocation())
-					&& object.getData().isSolid()) {
-				getLocation().offset(-1 * direction.getXOffset(),
-						-1 * direction.getYOffset());
-				return;
+			if (getLocation().equals(object.getLocation()) && object.getData().isSolid()) {
+				getLocation().retreat(direction);
 			}
 		}
 	}
 
-	@Override public String toString() {
-		return "Charcter(" + super.toString() + ")";
-	}
-
-	@Override public boolean equals(Object o) {
-		if (!(o instanceof Character)) {
-			return false;
-		}
-		Character other = (Character) o;
-		return super.equals(other);
-	}
 }

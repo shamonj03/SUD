@@ -11,19 +11,19 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.joe.io.data.NpcData;
+import com.joe.io.NpcData;
 
 public class NpcDefinition {
-	
+
 	private static HashMap<Integer, NpcData> dataMap;
-	
+
 	public static void load() {
 		try {
 			File file = new File("./data/npcs.json");
 
 			Type type = new TypeToken<Map<Integer, NpcData>>() { }.getType();
 			dataMap = new Gson().fromJson(new FileReader(file), type);
-			
+
 		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
 public class InputReader {
 
 	private static BufferedReader reader = new BufferedReader(
@@ -26,6 +27,7 @@ public class InputReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		return input;
 	}
 

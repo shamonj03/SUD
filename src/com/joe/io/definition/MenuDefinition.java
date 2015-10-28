@@ -9,7 +9,7 @@ import com.joe.model.menu.InventoryMenu;
 import com.joe.model.menu.MainMenu;
 
 public class MenuDefinition {
-	
+
 	private static HashMap<Integer, Menu> menuMap = new HashMap<>();
 
 	public static void load() {

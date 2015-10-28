@@ -1,32 +1,38 @@
-package com.joe.io.data;
+package com.joe.io;
 
-public class ObjectData {
+import com.joe.model.EntityType;
+
+public class ObjectData implements EntityData {
 
 	private String name = "Null Object";
-	
+
 	private boolean solid = true;
-	
+
 	private boolean interactable = false;
-	
+
 	private char mapChar = ' ';
-	
-	
-	public String getName() {
+
+
+	@Override public String getName() {
 		return name;
 	}
-	
+
 	public boolean isSolid() {
 		return solid;
 	}
-	
+
 	public boolean isInteractable() {
 		return interactable;
 	}
-	
+
 	public char getMapChar() {
 		return mapChar;
 	}
-	
+
+	@Override public EntityType getEntityType() {
+		return EntityType.OBJECT;
+	}
+
 	@Override public String toString() {
 		return "ObjectData(Name: " + name + ", MapChar: " + mapChar + ", Solid: " + solid + ", Interactable: " + interactable + ")";
 	}

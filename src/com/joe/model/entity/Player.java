@@ -1,8 +1,7 @@
 package com.joe.model.entity;
 
-import com.joe.Game;
+import com.joe.io.PlayerData;
 import com.joe.io.definition.ZoneDefinition;
-import com.joe.model.EntityType;
 import com.joe.model.Equipment;
 import com.joe.model.Item;
 import com.joe.model.ItemContainer;
@@ -10,63 +9,61 @@ import com.joe.model.ItemType;
 import com.joe.model.Zone;
 import com.joe.util.Util;
 
-public class Player extends Character {
+public class Player extends Character<PlayerData> {
 
-	private ItemContainer inventory = new ItemContainer(28);
-
-	private Equipment equipment = new Equipment();
-
-	private Zone zone = ZoneDefinition.forId(0);
+	private PlayerData data = new PlayerData();
 
 	public Player() {
 		location.set(2, 3);
-		zone.register(this);
+		Zone zone = data.getZone();
+		//zone.register(this);
+	}
+
+	@Override public PlayerData getData() {
+		return data;
 	}
 
 	public boolean addItemToInv(Item item) {
-		if (!getInventory().add(item)) {
-			zone.register(new GroundItem(item, getLocation()));
+		ItemContainer inventory = data.getInventory();
+		Zone zone = data.getZone();
+
+		if (!inventory.add(item)) {
+			zone.getGroundItemController().register(new GroundItem(item, getLocation()));
 			Util.streamMessageLn("Your inventory is too full. The item is placed on the ground.");
-			Util.pressEnterToContinue();
+			//Util.pressEnterToContinue();
 			return false;
 		}
 		return true;
 	}
 
-	public void consume(Item item) {
-		
-	}
-	
 	public boolean equip(Item item) {
-		Player player = Game.getPlayer();
+		ItemContainer inventory = data.getInventory();
+		Equipment equipment = data.getEquipment();
 
 		if (item.getData().getType() != ItemType.EQUIPABLE) {
 			return false;
 		}
-		if (player.getEquipment().add(item)) {
-			player.getInventory().remove(item);
-			Util.streamMessageLn("You equip the " + item.getData().getName()
-					+ ".");
-			Util.pressEnterToContinue();
+		if (equipment.add(item)) {
+			inventory.remove(item);
+			Util.streamMessageLn("You equip the " + item.getData().getName() + ".");
+			//Util.pressEnterToContinue();
 		} else {
-			Util.streamMessageLn("Your inventory is too full to equip the "
-					+ item.getData().getName() + ".");
-			Util.pressEnterToContinue();
+			Util.streamMessageLn("Your inventory is too full to equip the " + item.getData().getName() + ".");
+			//Util.pressEnterToContinue();
 		}
 		return true;
 	}
 
 	public void setZone(int id) {
+		Zone zone = data.getZone();
+
 		if (zone != null) {
-			zone.unregister(this);
+			//zone.unregister(this);
 		}
 		zone = ZoneDefinition.forId(id);
-		zone.register(this);
+		//zone.register(this);
 	}
 
-	@Override public EntityType getType() {
-		return EntityType.PLAYER;
-	}
 
 	@Override public String toString() {
 		return "Player(" + super.toString() + ")";
@@ -77,18 +74,6 @@ public class Player extends Character {
 			return false;
 		}
 		Player other = (Player) o;
-		return super.equals(o) && getType().equals(other.getType());
-	}
-
-	public ItemContainer getInventory() {
-		return inventory;
-	}
-
-	public Equipment getEquipment() {
-		return equipment;
-	}
-
-	public Zone getZone() {
-		return zone;
+		return super.equals(o) && data.getEntityType().equals(other.getData().getEntityType());
 	}
 }

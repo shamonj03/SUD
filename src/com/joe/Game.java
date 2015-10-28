@@ -28,24 +28,27 @@ public class Game {
 
 		player = new Player();
 		camera = new Camera(5, 5, player.getLocation());
-		
+
 		//Messages.introMessage();
-		
-		player.getInventory().add(new Item(0, 1));
-		player.getInventory().add(new Item(1, 1));
-		player.getInventory().add(new Item(2, 1));
-		player.getInventory().add(new Item(3, 1));
+
+		player.getData().getInventory().add(new Item(0, 1));
+		player.getData().getInventory().add(new Item(1, 1));
+		player.getData().getInventory().add(new Item(2, 1));
+		player.getData().getInventory().add(new Item(3, 1));
 		//player.getInventory().add(new Item(4, 1));
-		
+
 		play();
 	}
 
+	public static void redrawZone() {
+		player.getData().getZone().printVisibleZone();
+	}
+
 	private static void play() {
-		player.getZone().printVisibleZone();
-		System.out.println();
-		
+		redrawZone();
+
 		MenuDefinition.forId(0).displayMenu();
-		
+
 		play();
 	}
 
@@ -56,5 +59,5 @@ public class Game {
 	public static Camera getCamera() {
 		return camera;
 	}
-	
+
 }

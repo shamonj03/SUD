@@ -1,33 +1,38 @@
-package com.joe.io.data;
+package com.joe.io;
 
-public class NpcData {
-	
+import com.joe.model.EntityType;
+
+public class NpcData implements EntityData {
+
 	private String name = "Null Npc";
-	
+
 	private boolean friendly = true;
-	
+
 	private boolean solid = false;
-	
+
 	private char mapChar = 'N'; 
-	
-	
-	public String getName() {
+
+
+	@Override public String getName() {
 		return name;
 	}
-	
+
 	public boolean isFriendly() {
 		return friendly;
 	}
-	
+
 	public boolean isSolid() {
 		return solid;
 	}
-	
+
 	public char getMapChar() {
 		return mapChar;
 	}
-	
-	
+
+	@Override public EntityType getEntityType() {
+		return EntityType.NPC;
+	}
+
 	@Override public String toString() {
 		return "NpcData(Name: " + name + ", MapChar: " + mapChar + ", Firendly: " + friendly + ", Solid: " + solid + ")";
 	}
