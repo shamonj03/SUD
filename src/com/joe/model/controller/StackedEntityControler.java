@@ -7,27 +7,27 @@ import com.joe.model.Controller;
 import com.joe.model.Entity;
 import com.joe.model.entity.GroundItem;
 
-public class StackedEntityControler<T extends Entity<?>> extends BoundedMap<Tile<T>> implements Controller<T> {
+public class StackedEntityControler<T extends Entity<?>> extends BoundedMap<Stack<T>> implements Controller<T> {
 
 	public StackedEntityControler(int width, int height) {
 		super(width, height);
 
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				set(x, y, new Tile<>());
+				set(x, y, new Stack<>());
 			}
 		}
 	}
 
 	@Override public void register(T e) {
-		Tile<T> tile = get(e.getLocation().getX(), e.getLocation().getY());
+		Stack<T> tile = get(e.getLocation().getX(), e.getLocation().getY());
 
 		tile.register(e);
 		set(e.getLocation().getX(), e.getLocation().getY(), tile);
 	}
 
 	@Override public void unregister(T e) {
-		Tile<T> tile = get(e.getLocation().getX(), e.getLocation().getY());
+		Stack<T> tile = get(e.getLocation().getX(), e.getLocation().getY());
 
 		tile.unregister(e);
 		set(e.getLocation().getX(), e.getLocation().getY(), tile);

@@ -10,7 +10,7 @@ import com.joe.model.entity.GroundItem;
 import com.joe.model.entity.Npc;
 import com.joe.model.entity.Player;
 import com.joe.model.controller.BoundedEntityController;
-import com.joe.model.controller.Tile;
+import com.joe.model.controller.Stack;
 import com.joe.model.controller.StackedEntityControler;
 import com.joe.model.entity.GameObject;
 import com.joe.util.Util;
@@ -126,14 +126,14 @@ public abstract class Zone {
 				list.add(object);
 			}
 
-			Tile<Npc> npcs = npcController.get(x, y);
+			Stack<Npc> npcs = npcController.get(x, y);
 			for (Npc npc : npcs) {
 				if (predicate.test(npc)) {
 					list.add(npc);
 				}
 			}
 
-			Tile<GroundItem> groundItems = groundItemController.get(x, y);
+			Stack<GroundItem> groundItems = groundItemController.get(x, y);
 			for (GroundItem item : groundItems) {
 				if (predicate.test(item)) {
 					list.add(item);

@@ -6,7 +6,7 @@ import java.util.Iterator;
 import com.joe.model.Entity;
 import com.joe.model.Controller;
 
-public class Tile<T extends Entity<?>> implements Controller<T>, Iterable<T> {
+public class Stack<T> implements Controller<T>, Iterable<T> {
 
 	private ArrayList<T> items = new ArrayList<>();
 
