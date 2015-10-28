@@ -10,12 +10,13 @@ import com.joe.model.entity.GroundItem;
 import com.joe.model.entity.Npc;
 import com.joe.model.entity.Player;
 import com.joe.model.controller.BoundedEntityController;
+import com.joe.model.controller.BoundedMap;
 import com.joe.model.controller.Stack;
 import com.joe.model.controller.StackedEntityControler;
 import com.joe.model.entity.GameObject;
 import com.joe.util.Util;
 
-public abstract class Zone {
+public abstract class Zone extends BoundedMap<java.lang.Character> {
 
 	private final int width;
 	private final int height;
@@ -23,8 +24,6 @@ public abstract class Zone {
 	protected final StackedEntityControler<Npc> npcController;
 	protected final BoundedEntityController<GameObject> gameObjectController;
 	protected final StackedEntityControler<GroundItem> groundItemController;
-
-	private char[][] map;
 
 	private static final int[][] TILE_OFFSETS = { { -1, 0, }, { 0, -1 }, { 0, 0, }, { 1, 0 }, { 0, 1 } };
 
@@ -37,7 +36,7 @@ public abstract class Zone {
 		height = getDefaultObjectMap().length;
 		width = getDefaultObjectMap()[0].length;
 
-		map = new char[height][width];
+		setBounds(width, height);
 
 		npcController = new StackedEntityControler<>(width, height);
 		gameObjectController = new BoundedEntityController<>(width, height);
@@ -79,7 +78,7 @@ public abstract class Zone {
 	}
 
 	private void resetMap() {
-		map = new char[getHeight()][getWidth()];
+		reset();
 
 		gameObjectController.iterate(object -> set(object.getLocation().getX(), object.getLocation().getY(), object
 				.getData().getMapChar()));
@@ -161,11 +160,11 @@ public abstract class Zone {
 		if (startX < 0) {
 			startX = 0;
 		}
-		if (endY >= map.length) {
-			endY = map.length - 1;
+		if (endY >= getHeight()) {
+			endY = getHeight() - 1;
 		}
-		if (endX >= map[endY].length) {
-			endX = map[endY].length - 1;
+		if (endX >= getWidth()) {
+			endX = getWidth() - 1;
 		}
 
 		GameFrame.getMap().clearText();
@@ -176,32 +175,6 @@ public abstract class Zone {
 			}
 			GameFrame.getMap().println();
 		}
-	}
-
-	private boolean inBounds(int x, int y) {
-		return (y >= 0 && y < map.length) && (x >= 0 && x < map[y].length);
-	}
-
-	private char get(int x, int y) {
-		if (!inBounds(x, y)) {
-			throw new IndexOutOfBoundsException();
-		}
-		return map[y][x];
-	}
-
-	private void set(int x, int y, char t) {
-		if (!inBounds(x, y)) {
-			throw new IndexOutOfBoundsException();
-		}
-		map[y][x] = t;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public int getWidth() {
-		return width;
 	}
 
 	public StackedEntityControler<Npc> getNpController() {

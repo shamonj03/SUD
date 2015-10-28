@@ -10,12 +10,25 @@ import com.joe.model.entity.GameObject;
 public abstract class BoundedMap<T> {
 
 	private T[][] map;
+	
+	private int width;
+	
+	private int height;
 
 	public BoundedMap(int width, int height) {
 		setBounds(width, height);
 	}
+	
+	public BoundedMap() {
+	}
+	
+	@SuppressWarnings("unchecked") public void reset() {
+		this.map = (T[][]) new Object[height][width];
+	}
 
 	@SuppressWarnings("unchecked") public void setBounds(int width, int height) {
+		this.width = width;
+		this.height = height;
 		this.map = (T[][]) new Object[height][width];
 	}
 
@@ -24,11 +37,11 @@ public abstract class BoundedMap<T> {
 	}
 	
 	public int getWidth() {
-		return map[0].length;
+		return width;
 	}
 	
 	public int getHeight() {
-		return map.length;
+		return height;
 	}
 
 	public T get(int x, int y) {
