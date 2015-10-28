@@ -18,9 +18,6 @@ import com.joe.util.Util;
 
 public abstract class Zone extends BoundedMap<java.lang.Character> {
 
-	private final int width;
-	private final int height;
-
 	protected final StackedEntityControler<Npc> npcController;
 	protected final BoundedEntityController<GameObject> gameObjectController;
 	protected final StackedEntityControler<GroundItem> groundItemController;
@@ -33,8 +30,8 @@ public abstract class Zone extends BoundedMap<java.lang.Character> {
 	public abstract int[][] getDefaultObjectMap();
 
 	public Zone() {
-		height = getDefaultObjectMap().length;
-		width = getDefaultObjectMap()[0].length;
+		int height = getDefaultObjectMap().length;
+		int width = getDefaultObjectMap()[0].length;
 
 		setBounds(width, height);
 
@@ -67,8 +64,8 @@ public abstract class Zone extends BoundedMap<java.lang.Character> {
 	}
 
 	private void registerObjects() {
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
+		for (int y = 0; y < getHeight(); y++) {
+			for (int x = 0; x < getWidth(); x++) {
 				int id = getDefaultObjectMap()[y][x];
 
 				GameObject object = new GameObject(id, new Location(x, y));
