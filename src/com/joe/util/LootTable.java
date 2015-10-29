@@ -36,15 +36,11 @@ public class LootTable {
 	public static boolean basicRewardLoot(Loot[][] lootTable) {
 		Player player = Game.getPlayer();
 
-		return rewardLoot(
-				lootTable,
-				item -> {
-					Util.streamMessageLn("You find: "
-							+ item.getData().getName() + " x "
-							+ item.getAmount());
-					//Util.pressEnterToContinue();
-					player.addItemToInv(item);
-				});
+		return rewardLoot(lootTable, item -> {
+			Util.streamMessageLn("You find: " + item.getData().getName() + " x " + item.getAmount());
+			//Util.pressEnterToContinue();
+				player.addItemToInv(item);
+			});
 	}
 
 	private static double randomInRange(int min, int max) {

@@ -12,7 +12,7 @@ public class Player extends Entity<PlayerData> {
 
 	public void initialize() {
 		data = new PlayerData();
-		setZone(0);
+		setZone(1);
 		getLocation().set(2, 3);
 	}
 

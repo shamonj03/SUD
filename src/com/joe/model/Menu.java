@@ -57,9 +57,12 @@ public abstract class Menu {
 		}
 
 		GameFrame.getOptions().print("Choice: ");
-		float choice = GameFrame.getInput().getFloat();
-
-		String number = Float.toString(choice);
+		float number = GameFrame.getInput().getFloat();
+		waitForInput(Float.toString(number));
+	}
+	
+	public void waitForInput(String input) {
+		String number = input;
 
 		String[] tokens = number.split("\\.");
 		int index = Integer.parseInt(tokens[0]);

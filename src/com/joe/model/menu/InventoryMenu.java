@@ -45,7 +45,7 @@ public class InventoryMenu extends Menu {
 					&& item.getData().getType() == ItemType.CONSUMABLE) {
 				EventDispatcher.dispatch(new ConsumeItemEvent(item));
 			} else if (actions[option].equalsIgnoreCase("use")) {
-				GameFrame.getConsole().print("Choose another item slot: ");
+				/*GameFrame.getConsole().print("Choose another item slot: ");
 				int slot = GameFrame.getInput().getInt();
 
 				if ((slot - 1) == (index - 1)) {
@@ -55,7 +55,7 @@ public class InventoryMenu extends Menu {
 					return;
 				}
 				Item otherItem = inventory.getItem(slot - 1);
-				EventDispatcher.dispatch(new ItemOnItemEvent(item, otherItem));
+				EventDispatcher.dispatch(new ItemOnItemEvent(item, otherItem));*/
 			} else {
 				Util.streamMessageLn(item.getData().getExamine());
 				//Util.pressEnterToContinue();

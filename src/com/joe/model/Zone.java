@@ -82,13 +82,18 @@ public class Zone extends BoundedMap<java.lang.Character> {
 		resetMap();
 
 		GameFrame.getMap().clearText();
+		String s = "";
 		for (int y = 0; y < getHeight(); y++) {
 			for (int x = 0; x < getWidth(); x++) {
-				char tile = get(x, y);
-				GameFrame.getMap().printf("%2c", tile);
+				Character c = get(x, y);
+				if(c == null) {
+					c = ' ';
+				}
+				s = s + String.format("%2c", c);
 			}
-			GameFrame.getMap().println();
+			s = s + "\n";
 		}
+		GameFrame.getMap().print(s);
 	}
 
 	public void printVisibleZone() {
@@ -118,12 +123,18 @@ public class Zone extends BoundedMap<java.lang.Character> {
 
 		GameFrame.getMap().clearText();
 
+		String s = "";
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
-				GameFrame.getMap().printf("%2c", get(x, y));
+				Character c = get(x, y);
+				if(c == null) {
+					c = ' ';
+				}
+				s = s + String.format("%2c", c);
 			}
-			GameFrame.getMap().println();
+			s = s + "\n";
 		}
+		GameFrame.getMap().print(s);
 	}
 
 	public ArrayList<Entity<?>> getEntitiesInReach(Predicate<Entity<?>> predicate) {
