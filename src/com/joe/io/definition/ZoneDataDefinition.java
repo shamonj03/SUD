@@ -16,9 +16,9 @@ public class ZoneDataDefinition {
 	
 	private static HashMap<Integer, ZoneData> dataMap = new HashMap<>();
 
-	public static void load() {
+	private static void load(int id) {
 		try {
-			File file = new File("./data/zones.json");
+			File file = new File("./data/zones/"+id+".json");
 
 			Gson g = new Gson();
 
@@ -33,6 +33,9 @@ public class ZoneDataDefinition {
 	}
 
 	public static ZoneData forId(int id) {
+		if(!dataMap.containsKey(id)) {
+			load(id);
+		}
 		return dataMap.get(id);
 	}
 }

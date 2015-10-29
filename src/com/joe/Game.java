@@ -21,7 +21,6 @@ public class Game {
 		ObjectDefinition.load();
 		NpcDefinition.load();
 		ItemDefinition.load();
-		ZoneDataDefinition.load();
 		MenuDefinition.load();
 	}
 
