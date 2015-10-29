@@ -1,7 +1,7 @@
 package com.joe.model.event.impl;
 
+import com.joe.model.Event;
 import com.joe.model.Item;
-import com.joe.model.event.Event;
 
 public class EquipEvent extends Event {
 	

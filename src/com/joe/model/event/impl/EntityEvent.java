@@ -1,9 +1,9 @@
 package com.joe.model.event.impl;
 
-import com.joe.io.definition.ZoneDefinition;
+import com.joe.control.ZoneController;
 import com.joe.model.Entity;
+import com.joe.model.Event;
 import com.joe.model.Zone;
-import com.joe.model.event.Event;
 
 public class EntityEvent<T extends Entity<?>> extends Event {
 	
@@ -12,7 +12,7 @@ public class EntityEvent<T extends Entity<?>> extends Event {
 	private Zone zone;
 
 	public EntityEvent(int zoneId, T entity) {
-		this.zone = ZoneDefinition.forId(zoneId);
+		this.zone = ZoneController.forId(zoneId);
 		this.entity = entity;
 	}
 	

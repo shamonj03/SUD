@@ -1,8 +1,8 @@
 package com.joe.model.event.impl;
 
 import com.joe.model.Direction;
+import com.joe.model.Event;
 import com.joe.model.entity.GameObject;
-import com.joe.model.event.Event;
 
 public class UnlockDoorEvent extends Event {
 

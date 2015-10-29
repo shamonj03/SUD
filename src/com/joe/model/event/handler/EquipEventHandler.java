@@ -1,13 +1,13 @@
 package com.joe.model.event.handler;
 
 import com.joe.Game;
-import com.joe.model.Equipment;
 import com.joe.model.Item;
-import com.joe.model.ItemContainer;
-import com.joe.model.ItemType;
 import com.joe.model.entity.Player;
 import com.joe.model.event.EventHandler;
 import com.joe.model.event.impl.EquipEvent;
+import com.joe.model.item.Equipment;
+import com.joe.model.item.ItemContainer;
+import com.joe.model.item.ItemType;
 import com.joe.util.Util;
 
 public class EquipEventHandler extends EventHandler<EquipEvent> {

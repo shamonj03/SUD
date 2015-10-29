@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonStreamParser;
 import com.google.gson.JsonSyntaxException;
-import com.joe.io.ObjectData;
 import com.joe.io.ZoneData;
 
 public class ZoneDataDefinition {

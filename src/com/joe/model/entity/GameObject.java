@@ -4,7 +4,6 @@ import com.joe.io.ObjectData;
 import com.joe.io.definition.ObjectDefinition;
 import com.joe.model.Entity;
 import com.joe.model.Location;
-import com.joe.model.Zone;
 
 public class GameObject extends Entity<ObjectData> {
 

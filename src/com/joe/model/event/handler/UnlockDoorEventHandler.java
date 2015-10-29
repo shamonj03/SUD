@@ -1,11 +1,11 @@
 package com.joe.model.event.handler;
 
 import com.joe.Game;
-import com.joe.model.ItemContainer;
 import com.joe.model.entity.GameObject;
 import com.joe.model.entity.Player;
 import com.joe.model.event.EventHandler;
 import com.joe.model.event.impl.UnlockDoorEvent;
+import com.joe.model.item.ItemContainer;
 import com.joe.util.Util;
 
 public class UnlockDoorEventHandler extends EventHandler<UnlockDoorEvent> {

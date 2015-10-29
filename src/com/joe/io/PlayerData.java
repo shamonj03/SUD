@@ -1,10 +1,8 @@
 package com.joe.io;
 
-import com.joe.io.definition.ZoneDefinition;
-import com.joe.model.EntityType;
-import com.joe.model.Equipment;
-import com.joe.model.ItemContainer;
-import com.joe.model.Zone;
+import com.joe.model.entity.EntityType;
+import com.joe.model.item.Equipment;
+import com.joe.model.item.ItemContainer;
 
 public class PlayerData implements EntityData {
 

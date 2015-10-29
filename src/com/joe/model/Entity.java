@@ -1,8 +1,7 @@
 package com.joe.model;
 
+import com.joe.control.ZoneController;
 import com.joe.io.EntityData;
-import com.joe.io.definition.ZoneDefinition;
-import com.joe.model.event.EventDispatcher;
 
 public abstract class Entity<T extends EntityData> {
 
@@ -21,7 +20,7 @@ public abstract class Entity<T extends EntityData> {
 	}
 
 	public Zone getZone() {
-		return ZoneDefinition.forId(zoneId);
+		return ZoneController.forId(zoneId);
 	}
 
 	public int getZoneId() {

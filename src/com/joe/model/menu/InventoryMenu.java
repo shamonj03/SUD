@@ -2,14 +2,15 @@ package com.joe.model.menu;
 
 import com.joe.Game;
 import com.joe.GameFrame;
-import com.joe.model.InventoryManager;
 import com.joe.model.Item;
-import com.joe.model.ItemContainer;
-import com.joe.model.ItemType;
 import com.joe.model.Menu;
 import com.joe.model.entity.Player;
 import com.joe.model.event.EventDispatcher;
+import com.joe.model.event.impl.ConsumeItemEvent;
 import com.joe.model.event.impl.EquipEvent;
+import com.joe.model.event.impl.ItemOnItemEvent;
+import com.joe.model.item.ItemContainer;
+import com.joe.model.item.ItemType;
 import com.joe.util.Util;
 
 public class InventoryMenu extends Menu {
@@ -42,7 +43,7 @@ public class InventoryMenu extends Menu {
 				EventDispatcher.dispatch(new EquipEvent(item));
 			} else if ((actions[option].equalsIgnoreCase("drink") || actions[option].equalsIgnoreCase("eat"))
 					&& item.getData().getType() == ItemType.CONSUMABLE) {
-				InventoryManager.consume(item);
+				EventDispatcher.dispatch(new ConsumeItemEvent(item));
 			} else if (actions[option].equalsIgnoreCase("use")) {
 				GameFrame.getConsole().print("Choose another item slot: ");
 				int slot = GameFrame.getInput().getInt();
@@ -54,7 +55,7 @@ public class InventoryMenu extends Menu {
 					return;
 				}
 				Item otherItem = inventory.getItem(slot - 1);
-				InventoryManager.usItemOnItem(item, otherItem);
+				EventDispatcher.dispatch(new ItemOnItemEvent(item, otherItem));
 			} else {
 				Util.streamMessageLn(item.getData().getExamine());
 				//Util.pressEnterToContinue();

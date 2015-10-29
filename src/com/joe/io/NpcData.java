@@ -1,6 +1,6 @@
 package com.joe.io;
 
-import com.joe.model.EntityType;
+import com.joe.model.entity.EntityType;
 
 public class NpcData implements EntityData {
 

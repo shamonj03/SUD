@@ -1,13 +1,9 @@
 package com.joe.model.entity;
 
 import com.joe.io.PlayerData;
-import com.joe.io.definition.ZoneDefinition;
 import com.joe.model.Entity;
-import com.joe.model.Equipment;
 import com.joe.model.Item;
-import com.joe.model.ItemContainer;
-import com.joe.model.ItemType;
-import com.joe.model.Zone;
+import com.joe.model.item.ItemContainer;
 import com.joe.util.Util;
 
 public class Player extends Entity<PlayerData> {

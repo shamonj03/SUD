@@ -1,8 +1,8 @@
 package com.joe.io;
 
-import com.joe.model.EntityType;
-import com.joe.model.EquipmentSlot;
-import com.joe.model.ItemType;
+import com.joe.model.entity.EntityType;
+import com.joe.model.item.EquipmentSlot;
+import com.joe.model.item.ItemType;
 
 public class ItemData implements EntityData {
 

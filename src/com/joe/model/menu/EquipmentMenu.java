@@ -1,11 +1,11 @@
 package com.joe.model.menu;
 
 import com.joe.Game;
-import com.joe.model.Equipment;
-import com.joe.model.EquipmentSlot;
 import com.joe.model.Item;
 import com.joe.model.Menu;
 import com.joe.model.entity.Player;
+import com.joe.model.item.Equipment;
+import com.joe.model.item.EquipmentSlot;
 import com.joe.util.Util;
 
 public class EquipmentMenu extends Menu {

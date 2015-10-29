@@ -3,11 +3,8 @@ package com.joe.util;
 import java.util.function.Consumer;
 
 import com.joe.Game;
-import com.joe.model.ItemContainer;
 import com.joe.model.Loot;
-import com.joe.model.LootTable;
 import com.joe.model.entity.GameObject;
-import com.joe.model.entity.Player;
 
 public class GameUtil {
 

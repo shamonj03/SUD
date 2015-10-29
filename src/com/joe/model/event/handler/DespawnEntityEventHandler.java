@@ -1,10 +1,9 @@
 package com.joe.model.event.handler;
 
 import com.joe.Game;
-import com.joe.io.definition.ZoneDefinition;
 import com.joe.model.Entity;
-import com.joe.model.EntityType;
 import com.joe.model.Zone;
+import com.joe.model.entity.EntityType;
 import com.joe.model.entity.GameObject;
 import com.joe.model.entity.GroundItem;
 import com.joe.model.entity.Npc;

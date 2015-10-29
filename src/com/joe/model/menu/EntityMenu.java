@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.joe.Game;
 import com.joe.model.Entity;
-import com.joe.model.EntityType;
 import com.joe.model.Menu;
+import com.joe.model.entity.EntityType;
 import com.joe.model.entity.GameObject;
 import com.joe.model.entity.GroundItem;
 import com.joe.model.entity.Npc;

@@ -2,7 +2,7 @@ package com.joe.model.event.impl;
 
 import com.joe.model.Direction;
 import com.joe.model.Entity;
-import com.joe.model.event.Event;
+import com.joe.model.Event;
 
 public class MoveEvent extends Event {
 
