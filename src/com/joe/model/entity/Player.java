@@ -24,7 +24,7 @@ public class Player extends Entity<PlayerData> {
 		ItemContainer inventory = data.getInventory();
 
 		if (!inventory.add(item)) {
-			zone.getGroundItemController().register(new GroundItem(item, getLocation()));
+			getZone().getGroundItemController().register(new GroundItem(item, getLocation()));
 			Util.streamMessageLn("Your inventory is too full. The item is placed on the ground.");
 			//Util.pressEnterToContinue();
 			return false;

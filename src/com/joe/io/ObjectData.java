@@ -12,6 +12,11 @@ public class ObjectData implements EntityData {
 
 	private char mapChar = ' ';
 
+	private int id;
+
+	public int getId() {
+		return id;
+	}
 
 	@Override public String getName() {
 		return name;
@@ -34,6 +39,7 @@ public class ObjectData implements EntityData {
 	}
 
 	@Override public String toString() {
-		return "ObjectData(Name: " + name + ", MapChar: " + mapChar + ", Solid: " + solid + ", Interactable: " + interactable + ")";
+		return "ObjectData(Name: " + name + ", MapChar: " + mapChar + ", Solid: " + solid + ", Interactable: "
+				+ interactable + ")";
 	}
 }

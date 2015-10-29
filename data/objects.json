@@ -1,38 +1,36 @@
-{
-	"0":
-	{	
-		"name": "Floor",
-		"solid": "false",
-		"mapChar": ' '
-	},
-	"1":
-	{	
-		"name": "Wall",
-		"mapChar": 'X'
-	},	
-	"2":
-	{	
-		"name": "Locked Door",
-		"mapChar": 'D',
-		"interactable": "true"
-	},	
-	"3":
-	{	
-		"name": "Unlocked Door",
-		"mapChar": 'D',
-		"interactable": "true"
-	},	
-	"4":
-	{	
-		"name": "Pot",
-		"mapChar": 'p',
-		"solid": "false",
-		"interactable": "true"
-	},
-	"5":
-	{	
-		"name": "Fake Wall",
-		"mapChar": 'X',
-		"interactable": "true"
-	}			
+{	
+	"id": "0",
+	"name": "Floor",
+	"solid": "false",
+	"mapChar": ' '
 }
+{	
+	"id": "1",
+	"name": "Wall",
+	"mapChar": 'X'
+}
+{	
+	"id": "2",
+	"name": "Locked Door",
+	"mapChar": 'D',
+	"interactable": "true"
+}
+{	
+	"id": "3",
+	"name": "Unlocked Door",
+	"mapChar": 'D',
+	"interactable": "true"
+}
+{	
+	"id": "4",
+	"name": "Pot",
+	"mapChar": 'p',
+	"solid": "false",
+	"interactable": "true"
+}
+{	
+	"id": "5",
+	"name": "Fake Wall",
+	"mapChar": 'X',
+	"interactable": "true"
+}			

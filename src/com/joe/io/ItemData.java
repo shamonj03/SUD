@@ -17,6 +17,12 @@ public class ItemData implements EntityData {
 	private String examine = "This item is nothing of interest.";
 
 	private String[] actions;
+	
+	private int id;
+	
+	public int getId() {
+		return id;
+	}
 
 	public String[] getActions() {
 		return actions;
@@ -47,7 +53,7 @@ public class ItemData implements EntityData {
 	}
 
 	@Override public String toString() {
-		return "ItemData(Name: " + name + ", Stackable: " + stackable + ", Type: " + type + ", Slot: " + slot + ")";
+		return "ItemData(ID: " + id + ", Name: " + name + ", Stackable: " + stackable + ", Type: " + type + ", Slot: " + slot + ")";
 	}
 
 	@Override public EntityType getEntityType() {

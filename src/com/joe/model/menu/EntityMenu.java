@@ -10,6 +10,10 @@ import com.joe.model.entity.GameObject;
 import com.joe.model.entity.GroundItem;
 import com.joe.model.entity.Npc;
 import com.joe.model.entity.Player;
+import com.joe.model.event.EventDispatcher;
+import com.joe.model.event.impl.GroundItemActionEvent;
+import com.joe.model.event.impl.NpcActionEvent;
+import com.joe.model.event.impl.ObjectActionEvent;
 
 public class EntityMenu extends Menu {
 
@@ -60,12 +64,11 @@ public class EntityMenu extends Menu {
 			Entity<?> entity = entities.get(index - 1);
 
 			if (entity.getData().getEntityType() == EntityType.OBJECT) {
-				player.getZone().handleObjectInteraction((GameObject) entity);
+				EventDispatcher.dispatch(new ObjectActionEvent(player.getZoneId(), (GameObject) entity));
 			} else if (entity.getData().getEntityType() == EntityType.NPC) {
-				player.getZone().handleNpcInteraction((Npc) entity);
+				EventDispatcher.dispatch(new NpcActionEvent(player.getZoneId(), (Npc) entity));
 			} else if (entity.getData().getEntityType() == EntityType.ITEM) {
-				player.getZone().handleGroundItemInteraction(
-						(GroundItem) entity);
+				EventDispatcher.dispatch(new GroundItemActionEvent(player.getZoneId(), (GroundItem) entity));
 			}
 		}
 

@@ -9,10 +9,15 @@ public class NpcData implements EntityData {
 	private boolean friendly = true;
 
 	private boolean solid = false;
+	
+	private int id;
 
 	private char mapChar = 'N'; 
 
-
+	public int getId() {
+		return id;
+	}
+	
 	@Override public String getName() {
 		return name;
 	}

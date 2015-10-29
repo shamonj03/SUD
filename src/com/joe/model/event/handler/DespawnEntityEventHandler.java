@@ -2,6 +2,7 @@ package com.joe.model.event.handler;
 
 import com.joe.Game;
 import com.joe.io.definition.ZoneDefinition;
+import com.joe.model.Entity;
 import com.joe.model.EntityType;
 import com.joe.model.Zone;
 import com.joe.model.entity.GameObject;
@@ -9,11 +10,11 @@ import com.joe.model.entity.GroundItem;
 import com.joe.model.entity.Npc;
 import com.joe.model.entity.Player;
 import com.joe.model.event.EventHandler;
-import com.joe.model.event.impl.DespawnEntityEvent;
+import com.joe.model.event.impl.EntityEvent;
 
-public class DespawnEntityEventHandler extends EventHandler<DespawnEntityEvent> {
+public class DespawnEntityEventHandler extends EventHandler<EntityEvent<Entity<?>>> {
 
-	@Override public void handle(DespawnEntityEvent event) {
+	@Override public void handle(EntityEvent<Entity<?>> event) {
 		EntityType type = event.getEntity().getData().getEntityType();
 	
 		Zone zone = event.getZone();

@@ -9,21 +9,28 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
+import com.google.gson.JsonStreamParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.joe.io.ItemData;
+import com.joe.io.NpcData;
 import com.joe.io.ObjectData;
 
 public class ObjectDefinition {
 
-	private static HashMap<Integer, ObjectData> dataMap;
+	private static HashMap<Integer, ObjectData> dataMap = new HashMap<>();
 
 	public static void load() {
 		try {
 			File file = new File("./data/objects.json");
 
-			Type type = new TypeToken<Map<Integer, ObjectData>>() { }.getType();
-			dataMap = new Gson().fromJson(new FileReader(file), type);
+			Gson g = new Gson();
 
+			JsonStreamParser parser = new JsonStreamParser(new FileReader(file));
+			while (parser.hasNext()) {
+				ObjectData data = g.fromJson(parser.next(), ObjectData.class);
+				dataMap.put(data.getId(), data);
+			}
 		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 			e.printStackTrace();
 		}

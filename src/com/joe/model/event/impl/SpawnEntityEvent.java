@@ -1,28 +1,15 @@
 package com.joe.model.event.impl;
 
 import com.joe.model.Entity;
-import com.joe.model.Location;
 import com.joe.model.Zone;
-import com.joe.model.event.Event;
 
-public class SpawnEntityEvent extends Event {
+public class SpawnEntityEvent extends EntityEvent<Entity<?>> {
 
-	private Entity<?> entity;
-	
-	private Zone zone;
+	public SpawnEntityEvent(int zoneId, Entity<?> entity) {
+		super(zoneId, entity);
+	}
 
 	public SpawnEntityEvent(Zone zone, Entity<?> entity) {
-		this.zone = zone;
-		this.entity = entity;
+		super(zone, entity);
 	}
-
-	public Zone getZone() {
-		return zone;
-	}
-	
-	public Entity<?> getEntity() {
-		return entity;
-	}
-
-
 }

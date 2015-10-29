@@ -1,7 +1,5 @@
-{
-	"0":
-	{	
-		"name": "Recuiter",
-		"mapChar": 'R'
-	}	
+{	
+	"id": "0",
+	"name": "Recuiter",
+	"mapChar": 'R'
 }

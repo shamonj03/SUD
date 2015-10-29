@@ -17,7 +17,7 @@ public class SpawnEntityEventHandler extends EventHandler<SpawnEntityEvent> {
 		EntityType type = event.getEntity().getData().getEntityType();
 
 		Zone zone = event.getZone();
-		event.getEntity().setZone(zone);
+		event.getEntity().setZone(zone.getId());
 
 		if (type == EntityType.ITEM) {
 			zone.getGroundItemController().register((GroundItem) event.getEntity());

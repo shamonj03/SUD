@@ -25,8 +25,12 @@ public abstract class Zone extends BoundedMap<java.lang.Character> {
 	protected final StackedEntityControler<Npc> npcController;
 	protected final StaticEntityController<GameObject> gameObjectController;
 	protected final StackedEntityControler<GroundItem> groundItemController;
+	
+	private int id;
 
-	public Zone() {
+	public Zone(int id) {
+		this.id = id;
+		
 		int height = getDefaultObjectMap().length;
 		int width = getDefaultObjectMap()[0].length;
 
@@ -46,24 +50,6 @@ public abstract class Zone extends BoundedMap<java.lang.Character> {
 	public abstract int[][] getDefaultObjectMap();
 
 	protected abstract void initialize();
-
-	public abstract void handleObjectInteraction(GameObject object);
-
-	public abstract void handleNpcInteraction(Npc npc);
-
-	public void handleGroundItemInteraction(GroundItem item) {
-		Player player = Game.getPlayer();
-
-		if (player.getData().getInventory().add(item.getItem())) {
-			Util.streamMessageLn("You picked up: " + item.getItem().getName() + " x " + item.getItem().getAmount()
-					+ ".");
-			//Util.pressEnterToContinue();
-			EventDispatcher.dispatch(new DespawnEntityEvent(this, item));
-		} else {
-			Util.streamMessageLn("Your inventory is too full to pick this item up.");
-			//Util.pressEnterToContinue();
-		}
-	}
 
 	private void registerObjects() {
 		for (int y = 0; y < getHeight(); y++) {
@@ -172,6 +158,10 @@ public abstract class Zone extends BoundedMap<java.lang.Character> {
 			}
 		}
 		return list;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public StackedEntityControler<Npc> getNpcController() {
