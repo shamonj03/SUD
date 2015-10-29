@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import com.joe.Game;
 import com.joe.GameFrame;
+import com.joe.io.ZoneData;
+import com.joe.io.definition.ZoneDataDefinition;
 import com.joe.model.controller.BoundedMap;
 import com.joe.model.controller.Stack;
 import com.joe.model.controller.StackedEntityControler;
@@ -18,7 +20,7 @@ import com.joe.model.event.impl.DespawnEntityEvent;
 import com.joe.model.event.impl.SpawnEntityEvent;
 import com.joe.util.Util;
 
-public abstract class Zone extends BoundedMap<java.lang.Character> {
+public class Zone extends BoundedMap<java.lang.Character> {
 
 	private static final int[][] TILE_OFFSETS = { { -1, 0, }, { 0, -1 }, { 0, 0, }, { 1, 0 }, { 0, 1 } };
 
@@ -31,33 +33,35 @@ public abstract class Zone extends BoundedMap<java.lang.Character> {
 	public Zone(int id) {
 		this.id = id;
 		
-		int height = getDefaultObjectMap().length;
-		int width = getDefaultObjectMap()[0].length;
+		ZoneData data = ZoneDataDefinition.forId(id);
+		int height = data.getObjects().length;
+		int width = data.getObjects()[0].length;
 
 		setBounds(width, height);
 
 		npcController = new StackedEntityControler<>(width, height);
 		gameObjectController = new StaticEntityController<>(width, height);
 		groundItemController = new StackedEntityControler<>(width, height);
-
-		initialize();
-		registerObjects();
+	}
+	
+	private ZoneData getData() {
+		return ZoneDataDefinition.forId(id);
 	}
 
-	/**
-	 * @return The the map containing the objects of the zone;
-	 */
-	public abstract int[][] getDefaultObjectMap();
-
-	protected abstract void initialize();
-
-	private void registerObjects() {
+	public void registerEntities() {
 		for (int y = 0; y < getHeight(); y++) {
 			for (int x = 0; x < getWidth(); x++) {
-				int id = getDefaultObjectMap()[y][x];
+				int id = getData().getObjects()[y][x];
 
 				EventDispatcher.dispatch(new SpawnEntityEvent(this, new GameObject(id, new Location(x, y))));
 			}
+		}
+		
+		for(Npc npc : getData().getNpcs()) {
+			EventDispatcher.dispatch(new SpawnEntityEvent(this, npc));
+		}
+		for(GroundItem item : getData().getItems()) {
+			EventDispatcher.dispatch(new SpawnEntityEvent(this, item));
 		}
 	}
 

@@ -18,31 +18,9 @@ import com.joe.util.Messages;
 import com.joe.util.Util;
 
 public class StarterZone extends Zone {
-
-	private static final int[][] tileMap = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-
-		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 1 },
-
-		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1 },
-
-		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-
-		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-
-		{ 1, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 2 },
-
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 	
 	public StarterZone(int id) {
 		super(id);
 	}
 
-	@Override public void initialize() {
-		EventDispatcher.dispatch(new SpawnEntityEvent(this, new Npc(0, new Location(3, 3))));
-		EventDispatcher.dispatch(new SpawnEntityEvent(this, new GroundItem(new Item(0, 1), new Location(1, 1))));
-	}
-
-	@Override public int[][] getDefaultObjectMap() {
-		return tileMap;
-	}
 }
