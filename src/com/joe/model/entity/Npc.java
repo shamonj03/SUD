@@ -2,9 +2,10 @@ package com.joe.model.entity;
 
 import com.joe.io.NpcData;
 import com.joe.io.definition.NpcDefinition;
+import com.joe.model.Entity;
 import com.joe.model.Location;
 
-public class Npc extends Character<NpcData> {
+public class Npc extends Entity<NpcData> {
 
 	private int id;
 

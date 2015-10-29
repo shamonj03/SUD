@@ -16,7 +16,7 @@ public class Messages {
 	public static void hintMessageGuide() {
 		Player player = Game.getPlayer();
 		Camera camera = Game.getCamera();
-		Zone zone = player.getData().getZone();
+		Zone zone = player.getZone();
 		camera.getLocation().set(10, 6);
 		Util.streamMessageLn("Kids these days...Can't do anything on their own.");
 		Util.pressEnterToContinue();

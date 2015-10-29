@@ -5,6 +5,8 @@ import com.joe.io.definition.MenuDefinition;
 import com.joe.model.Direction;
 import com.joe.model.Menu;
 import com.joe.model.entity.Player;
+import com.joe.model.event.EventDispatcher;
+import com.joe.model.event.impl.MoveEvent;
 
 public class MainMenu extends Menu {
 
@@ -27,13 +29,13 @@ public class MainMenu extends Menu {
 
 		if (index < 5) {
 			if (index == 1) {
-				player.move(Direction.NORTH);
+				EventDispatcher.dispatch(new MoveEvent(player, Direction.NORTH));
 			} else if (index == 2) {
-				player.move(Direction.SOUTH);
+				EventDispatcher.dispatch(new MoveEvent(player, Direction.SOUTH));
 			} else if (index == 3) {
-				player.move(Direction.EAST);
+				EventDispatcher.dispatch(new MoveEvent(player, Direction.EAST));
 			} else if (index == 4) {
-				player.move(Direction.WEST);
+				EventDispatcher.dispatch(new MoveEvent(player, Direction.WEST));
 			}
 			Game.getCamera().getLocation().set(player.getLocation());
 		} else if (index == 5) {

@@ -1,6 +1,7 @@
 package com.joe.model.zone;
 
 import com.joe.Game;
+import com.joe.model.Direction;
 import com.joe.model.Item;
 import com.joe.model.Location;
 import com.joe.model.Loot;
@@ -9,6 +10,9 @@ import com.joe.model.entity.GameObject;
 import com.joe.model.entity.GroundItem;
 import com.joe.model.entity.Npc;
 import com.joe.model.entity.Player;
+import com.joe.model.event.EventDispatcher;
+import com.joe.model.event.impl.SpawnEntityEvent;
+import com.joe.model.event.impl.UnlockDoorEvent;
 import com.joe.util.GameUtil;
 import com.joe.util.Messages;
 import com.joe.util.Util;
@@ -32,11 +36,8 @@ public class StarterZone extends Zone {
 	private static final Loot[][] potLoot = { { new Loot(1, 3, 75) } };
 
 	@Override public void initialize() {
-		Npc test = new Npc(0, new Location(3, 3));
-		npcController.register(test);
-
-		GroundItem sword = new GroundItem(new Item(0, 1), new Location(1, 1));
-		groundItemController.register(sword);
+		EventDispatcher.dispatch(new SpawnEntityEvent(this, new Npc(0, new Location(3, 3))));
+		EventDispatcher.dispatch(new SpawnEntityEvent(this, new GroundItem(new Item(0, 1), new Location(1, 1))));
 	}
 
 	@Override public void handleObjectInteraction(GameObject object) {
@@ -44,7 +45,7 @@ public class StarterZone extends Zone {
 
 		switch (object.getId()) {
 			case 2: // Locked Door
-				GameUtil.unlockDoor(object, 10, 5, 4);
+				EventDispatcher.dispatch(new UnlockDoorEvent(object, Direction.WEST, 4));
 				break;
 
 			case 4: // Pot

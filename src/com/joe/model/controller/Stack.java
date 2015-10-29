@@ -3,29 +3,36 @@ package com.joe.model.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.joe.model.Entity;
 import com.joe.model.Controller;
 
-public class Stack<T> implements Controller<T>, Iterable<T> {
+public class Stack<E> implements Controller<E>, Iterable<E> {
 
-	private ArrayList<T> items = new ArrayList<>();
+	private ArrayList<E> items = new ArrayList<>();
 
-	@Override public void register(T entity) {
-		items.add(entity);
+	@Override public void register(E e) {
+		items.add(e);
 	}
 
-	@Override public void unregister(T entity) {
-		items.remove(entity);
+	@Override public void unregister(E e) {
+		items.remove(e);
 	}
-	
-	public T getTop() {
-		if(items.isEmpty()) {
+
+	public E getTop() {
+		return get(items.size() - 1);
+	}
+
+	public E getBottom() {
+		return get(0);
+	}
+
+	public E get(int index) {
+		if (items.isEmpty()) {
 			return null;
 		}
-		return items.get(items.size() - 1);
+		return items.get(index);
 	}
 
-	@Override public Iterator<T> iterator() {
+	@Override public Iterator<E> iterator() {
 		return items.iterator();
 	}
 }

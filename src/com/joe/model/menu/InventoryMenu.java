@@ -8,6 +8,8 @@ import com.joe.model.ItemContainer;
 import com.joe.model.ItemType;
 import com.joe.model.Menu;
 import com.joe.model.entity.Player;
+import com.joe.model.event.EventDispatcher;
+import com.joe.model.event.impl.EquipEvent;
 import com.joe.util.Util;
 
 public class InventoryMenu extends Menu {
@@ -21,8 +23,7 @@ public class InventoryMenu extends Menu {
 		ItemContainer inventory = player.getData().getInventory();
 
 		for (Item item : inventory) {
-			addItem(item.getData().getName() + " x " + item.getAmount(), item
-					.getData().getActions());
+			addItem(item.getData().getName() + " x " + item.getAmount(), item.getData().getActions());
 
 		}
 		addItem("Back");
@@ -37,11 +38,9 @@ public class InventoryMenu extends Menu {
 
 			String[] actions = item.getData().getActions();
 
-			if (actions[option].equalsIgnoreCase("equip")
-					&& item.getData().getType() == ItemType.EQUIPABLE) {
-				player.equip(item);
-			} else if ((actions[option].equalsIgnoreCase("drink") || actions[option]
-					.equalsIgnoreCase("eat"))
+			if (actions[option].equalsIgnoreCase("equip") && item.getData().getType() == ItemType.EQUIPABLE) {
+				EventDispatcher.dispatch(new EquipEvent(item));
+			} else if ((actions[option].equalsIgnoreCase("drink") || actions[option].equalsIgnoreCase("eat"))
 					&& item.getData().getType() == ItemType.CONSUMABLE) {
 				InventoryManager.consume(item);
 			} else if (actions[option].equalsIgnoreCase("use")) {

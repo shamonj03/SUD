@@ -14,8 +14,6 @@ public class PlayerData implements EntityData {
 
 	private Equipment equipment = new Equipment();
 
-	private Zone zone = ZoneDefinition.forId(0);
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -30,10 +28,6 @@ public class PlayerData implements EntityData {
 
 	public Equipment getEquipment() {
 		return equipment;
-	}
-
-	public Zone getZone() {
-		return zone;
 	}
 
 	@Override public EntityType getEntityType() {

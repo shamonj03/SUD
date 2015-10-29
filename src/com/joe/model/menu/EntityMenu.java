@@ -22,7 +22,7 @@ public class EntityMenu extends Menu {
 	@Override public void populateMenu() {
 		Player player = Game.getPlayer();
 
-		entities = player.getData().getZone().getEntitiesInReach(entity -> {
+		entities = player.getZone().getEntitiesInReach(entity -> {
 			if (entity.getData().getEntityType() == EntityType.OBJECT) {
 				GameObject object = (GameObject) entity;
 
@@ -60,11 +60,11 @@ public class EntityMenu extends Menu {
 			Entity<?> entity = entities.get(index - 1);
 
 			if (entity.getData().getEntityType() == EntityType.OBJECT) {
-				player.getData().getZone().handleObjectInteraction((GameObject) entity);
+				player.getZone().handleObjectInteraction((GameObject) entity);
 			} else if (entity.getData().getEntityType() == EntityType.NPC) {
-				player.getData().getZone().handleNpcInteraction((Npc) entity);
+				player.getZone().handleNpcInteraction((Npc) entity);
 			} else if (entity.getData().getEntityType() == EntityType.ITEM) {
-				player.getData().getZone().handleGroundItemInteraction(
+				player.getZone().handleGroundItemInteraction(
 						(GroundItem) entity);
 			}
 		}

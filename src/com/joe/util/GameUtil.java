@@ -30,22 +30,4 @@ public class GameUtil {
 		Game.redrawZone();
 	}
 
-	public static void unlockDoor(GameObject object, int x, int y, int keyId) {
-		Player player = Game.getPlayer();
-		ItemContainer inventory = player.getData().getInventory();
-
-		if (player.getLocation().equals(x, y)) {
-			if (inventory.contains(keyId, 1)) {
-				inventory.remove(keyId, 1);
-				object.setId(3);
-
-				Game.redrawZone();
-				Util.streamMessageLn("You unlock the door.");
-				//Util.pressEnterToContinue();
-			} else {
-				Util.streamMessageLn("Looks like you need a key to unlock this door.");
-				//Util.pressEnterToContinue();
-			}
-		}
-	}
 }

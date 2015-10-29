@@ -1,30 +1,27 @@
 package com.joe.model.controller;
 
-import java.util.Iterator;
-
 import com.joe.model.Controller;
 import com.joe.model.Entity;
-import com.joe.model.entity.GameObject;
 
-public class BoundedEntityController<T extends Entity<?>> extends BoundedMap<T> implements Controller<T> { 
+public class StaticEntityController<E extends Entity<?>> extends BoundedMap<E> implements Controller<E> { 
 
-	public BoundedEntityController(int mapWidth, int mapHeight) {
+	public StaticEntityController(int mapWidth, int mapHeight) {
 		super(mapWidth, mapHeight);
 	}
 
-	@Override public void register(T entity) {
+	@Override public void register(E entity) {
 		set(entity.getLocation().getX(), entity.getLocation().getY(), entity);
 	}
 
-	@Override public void unregister(T entity) {
+	@Override public void unregister(E entity) {
 		set(entity.getLocation().getX(), entity.getLocation().getY(), null);
 	}
 
-	public boolean inBounds(T entity) {
+	public boolean inBounds(E entity) {
 		return inBounds(entity.getLocation().getX(), entity.getLocation().getY());
 	}
 
-	public T get(T entity) {
+	public E get(E entity) {
 		return get(entity.getLocation().getX(), entity.getLocation().getY());
 	}
 

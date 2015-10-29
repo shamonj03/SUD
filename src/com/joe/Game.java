@@ -8,10 +8,11 @@ import com.joe.io.definition.ZoneDefinition;
 import com.joe.model.Camera;
 import com.joe.model.Item;
 import com.joe.model.entity.Player;
+import com.joe.model.event.EventDispatcher;
 
 public class Game {
 
-	private static Player player;
+	private static Player player = new Player();
 
 	private static Camera camera;
 
@@ -26,7 +27,7 @@ public class Game {
 	public static void start() {
 		initializeGame();
 
-		player = new Player();
+		player.initialize();
 		camera = new Camera(5, 5, player.getLocation());
 
 		//Messages.introMessage();
@@ -41,7 +42,7 @@ public class Game {
 	}
 
 	public static void redrawZone() {
-		player.getData().getZone().printVisibleZone();
+		player.getZone().printVisibleZone();
 	}
 
 	private static void play() {

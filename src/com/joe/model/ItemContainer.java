@@ -28,11 +28,11 @@ public class ItemContainer implements Iterable<Item> {
 	public boolean add(int id, int amount) {
 		Item item = new Item(id, amount);
 
-		if(item.getData().isStackable()) {
+		if (item.getData().isStackable()) {
 			int slot = getSlotForItem(id);
 
-			if(slot == -1) {
-				if((items.size() + 1) >= maxSlots) { // Inventory too large.
+			if (slot == -1) {
+				if ((items.size() + 1) >= maxSlots) { // Inventory too large.
 					return false;
 				}
 				items.add(item);
@@ -41,10 +41,10 @@ public class ItemContainer implements Iterable<Item> {
 				stackable.setAmount(stackable.getAmount() + item.getAmount());
 			}
 		} else {
-			if((items.size() + amount) >= maxSlots) { // Inventory too large.
+			if ((items.size() + amount) >= maxSlots) { // Inventory too large.
 				return false;
 			}
-			for(int i = 0; i < amount; i++) {
+			for (int i = 0; i < amount; i++) {
 				items.add(new Item(id, 1));
 			}
 		}
@@ -54,32 +54,32 @@ public class ItemContainer implements Iterable<Item> {
 	public void remove(int id, int amount) {
 		int slot = getSlotForItem(id);
 
-		if(slot == -1) {
+		if (slot == -1) {
 			return;
 		}
 
 		Item item = new Item(id, amount);
 
-		if(item.getData().isStackable()) {
+		if (item.getData().isStackable()) {
 			Item stackable = items.get(slot);
 			int newAmount = stackable.getAmount() - item.getAmount();
 
-			if(newAmount <= 0) {
+			if (newAmount <= 0) {
 				items.remove(stackable);
 			} else {
 				stackable.setAmount(newAmount);
 			}
 		} else {
-			for(int i = 0; i < amount; i++) {
+			for (int i = 0; i < amount; i++) {
 				items.remove(new Item(id, 1));
 			}
 		}
 	}
 
 	public int getSlotForItem(int id) {
-		for(int slot = 0; slot < items.size(); slot++) {
+		for (int slot = 0; slot < items.size(); slot++) {
 			Item item = items.get(slot);
-			if(item.getId() == id) {
+			if (item.getId() == id) {
 				return slot;
 			}
 		}
@@ -87,8 +87,8 @@ public class ItemContainer implements Iterable<Item> {
 	}
 
 	public boolean contains(int id, int amount) {
-		for(Item item : items) {
-			if(id == item.getId() && amount == item.getAmount()) {
+		for (Item item : items) {
+			if (id == item.getId() && amount == item.getAmount()) {
 				return true;
 			}
 		}
@@ -96,8 +96,8 @@ public class ItemContainer implements Iterable<Item> {
 	}
 
 	public boolean contains(int id) {
-		for(Item item : items) {
-			if(id == item.getId()) {
+		for (Item item : items) {
+			if (id == item.getId()) {
 				return true;
 			}
 		}

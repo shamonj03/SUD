@@ -1,13 +1,11 @@
 package com.joe.model.controller;
 
-import java.util.Iterator;
 import java.util.function.Consumer;
 
 import com.joe.model.Controller;
 import com.joe.model.Entity;
-import com.joe.model.entity.GroundItem;
 
-public class StackedEntityControler<T extends Entity<?>> extends BoundedMap<Stack<T>> implements Controller<T> {
+public class StackedEntityControler<E extends Entity<?>> extends BoundedMap<Stack<E>> implements Controller<E> {
 
 	public StackedEntityControler(int width, int height) {
 		super(width, height);
@@ -19,34 +17,34 @@ public class StackedEntityControler<T extends Entity<?>> extends BoundedMap<Stac
 		}
 	}
 
-	@Override public void register(T e) {
-		Stack<T> tile = get(e.getLocation().getX(), e.getLocation().getY());
+	@Override public void register(E e) {
+		Stack<E> stack = get(e.getLocation().getX(), e.getLocation().getY());
 
-		tile.register(e);
-		set(e.getLocation().getX(), e.getLocation().getY(), tile);
+		stack.register(e);
+		set(e.getLocation().getX(), e.getLocation().getY(), stack);
 	}
 
-	@Override public void unregister(T e) {
-		Stack<T> tile = get(e.getLocation().getX(), e.getLocation().getY());
+	@Override public void unregister(E e) {
+		Stack<E> stack = get(e.getLocation().getX(), e.getLocation().getY());
 
-		tile.unregister(e);
-		set(e.getLocation().getX(), e.getLocation().getY(), tile);
+		stack.unregister(e);
+		set(e.getLocation().getX(), e.getLocation().getY(), stack);
 	}
 
-	public void iterateTiles(Consumer<T> c) {
-		iterate(tile -> {
-			for (T t : tile) {
-				if (t == null) {
+	public void iterateTiles(Consumer<E> c) {
+		iterate(stack -> {
+			for (E e : stack) {
+				if (e == null) {
 					return;
 				}
-				c.accept(t);
+				c.accept(e);
 			}
 		});
 	}
 
-	public void iterateTopTiles(Consumer<T> c) {
-		iterate(tile -> {
-			T t = tile.getTop();
+	public void iterateTopTiles(Consumer<E> c) {
+		iterate(stack -> {
+			E t = stack.getTop();
 
 			if (t == null) {
 				return;
